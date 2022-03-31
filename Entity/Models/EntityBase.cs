@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Entity.Models
 {
-    internal class EntityBase
+    public class EntityBase
     {
         [Key]
         public Guid Id { get; set; }
-        public byte[] RowVersion { get; set; }
+        public byte[]? RowVersion { get; set; }
     }
 }

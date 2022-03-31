@@ -1,4 +1,4 @@
-﻿using Entity.Models.Subscription;
+﻿using Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -13,7 +13,15 @@ namespace Entity.EFConfiguration
     {
         public void Configure(EntityTypeBuilder<Plan> builder)
         {
-            builder.Property(o => o.RowVersion)
+            builder.Property(p => p.Name)
+                .HasMaxLength(128);
+
+            builder.HasOne(p => p.Subscription)
+                .WithMany(s => s.Plans)
+                .HasForeignKey(p => p.SubscriptionId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Property(p => p.RowVersion)
                 .IsRowVersion();
         }
     }

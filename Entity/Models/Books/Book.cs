@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.Models.Books
+namespace Entity.Models
 {
-    internal class Book : EntityBase
+    public class Book : EntityBase
     {
-        public string Title { get; set; }
+        public string? Title { get; set; }
         public int PageCount { get; set; }
-        public string Authors { get; set; }
+        public virtual ICollection<Author>? Authors { get; set; }
     }
 }

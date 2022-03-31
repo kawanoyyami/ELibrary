@@ -7,19 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.Models.Subscription
+namespace Entity.Models
 {
-    internal class Subscription : EntityBase
+    public class Subscription : EntityBase
     {
-        public long UserId { get; set; }
-        public virtual User Customer { get; set; }
-        public long? PlanId { get; set; }
-        public virtual Plan Plan { get; set; }
-        [Required]
+        public Guid UserId { get; set; }
+        public virtual User? User { get; set; }
+        public Guid PlanId { get; set; }
+        public virtual ICollection<Plan>? Plans { get; set; }
         public DateTime SubscriptionStartTimestamp { get; set; }
-        [Required]
         public DateTime SubscriptionEndTimestamp { get; set; }
-        [NotMapped]
         public bool IsActive { get => DateTime.Compare(SubscriptionStartTimestamp, SubscriptionEndTimestamp) <= 0; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Models.Auth
 {
-    internal class RoleClaim : IdentityRoleClaim<Guid>
+    public class RoleClaim : IdentityRoleClaim<Guid>
     {
     }
 }

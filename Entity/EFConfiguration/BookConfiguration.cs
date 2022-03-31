@@ -1,4 +1,4 @@
-﻿using Entity.Models.Books;
+﻿using Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -13,10 +13,11 @@ namespace Entity.EFConfiguration
     {
         public void Configure(EntityTypeBuilder<Book> builder)
         {
-            builder.Property(p => p.Title)
+            builder.Property(b => b.Title)
                 .IsRequired()
                 .HasMaxLength(100);
-            builder.Property(p => p.RowVersion)
+
+            builder.Property(b => b.RowVersion)
                 .IsRowVersion();
         }
     }

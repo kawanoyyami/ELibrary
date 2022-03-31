@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.Models.Reports
+namespace Entity.Models
 {
-    internal class Project : EntityBase
+    public class Project : EntityBase
     {
-        public string Name { get; set; }
-        public virtual long UserId { get; set; }
-        public virtual User User { get; set; }
+        public string? Name { get; set; }
+        public virtual Guid UserId { get; set; }
+        public virtual User? User { get; set; }
+        public virtual ICollection<Report>? Reports { get; set; }
+        public Guid ReportId { get; set; }
     }
 }

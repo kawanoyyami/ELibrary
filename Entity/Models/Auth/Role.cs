@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Models.Auth
 {
-    internal class Role : IdentityRole<Guid>
+    public class Role : IdentityRole<Guid>
     {
         public Role(string roleName) : base(roleName) { }
         public Role() : base() { }

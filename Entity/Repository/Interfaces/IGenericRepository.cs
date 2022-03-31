@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Entity.Interfaces
 {
-    internal interface IGenericRepository<TEntity> where TEntity : EntityBase
+    public interface IGenericRepository<TEntity> where TEntity : EntityBase
     {
-        Task<TEntity> GetByIdAsync(Guid id);
         void Add(TEntity entity);
         void Update(TEntity entity);
         void UpdateRange(IEnumerable<TEntity> entities);

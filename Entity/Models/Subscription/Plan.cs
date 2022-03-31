@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.Models.Subscription
+namespace Entity.Models
 {
-    internal class Plan : EntityBase
+    public class Plan : EntityBase
     {
-        [MaxLength(128)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Range(0, 1 << 20)]
         public decimal PricePerMonth { get; set; }
+        public Guid SubscriptionId { get; set; }
+        public virtual Subscription? Subscription { get; set; }
     }
 }

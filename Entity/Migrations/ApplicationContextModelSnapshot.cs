@@ -22,6 +22,21 @@ namespace Entity.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("AuthorBook", b =>
+                {
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AuthorId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("AuthorBook");
+                });
+
             modelBuilder.Entity("Entity.Models.Auth.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -92,8 +107,8 @@ namespace Entity.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasMaxLength(320)
+                        .HasColumnType("nvarchar(320)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -127,7 +142,6 @@ namespace Entity.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("RegisterTimestamp")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
@@ -232,22 +246,44 @@ namespace Entity.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Entity.Models.Books.Book", b =>
+            modelBuilder.Entity("Entity.Models.Author", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Authors")
-                        .IsRequired()
+                    b.Property<string>("AreaOfInteresnt")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DOB")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("Entity.Models.Book", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("PageCount")
                         .HasColumnType("int");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
@@ -261,7 +297,35 @@ namespace Entity.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Entity.Models.Reports.Project", b =>
+            modelBuilder.Entity("Entity.Models.Plan", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<decimal>("PricePerMonth")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<Guid>("SubscriptionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubscriptionId");
+
+                    b.ToTable("Plans");
+                });
+
+            modelBuilder.Entity("Entity.Models.Project", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -271,68 +335,67 @@ namespace Entity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("ReportId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("UserId1")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("Entity.Models.Subscription.Plan", b =>
+            modelBuilder.Entity("Entity.Models.Report", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("PricePerMonth")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<Guid>("ProjectId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Plans");
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("Reports");
                 });
 
-            modelBuilder.Entity("Entity.Models.Subscription.Subscription", b =>
+            modelBuilder.Entity("Entity.Models.Subscription", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<long?>("PlanId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("PlanId1")
+                    b.Property<Guid>("PlanId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
@@ -342,16 +405,31 @@ namespace Entity.Migrations
                     b.Property<DateTime>("SubscriptionStartTimestamp")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("PlanId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Subscriptions");
+                });
+
+            modelBuilder.Entity("AuthorBook", b =>
+                {
+                    b.HasOne("Entity.Models.Author", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_AuthorBook_Authors_AuthorId");
+
+                    b.HasOne("Entity.Models.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_AuthorBook_Books_BookId");
                 });
 
             modelBuilder.Entity("Entity.Models.Auth.RoleClaim", b =>
@@ -405,39 +483,65 @@ namespace Entity.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.Models.Reports.Project", b =>
+            modelBuilder.Entity("Entity.Models.Plan", b =>
+                {
+                    b.HasOne("Entity.Models.Subscription", "Subscription")
+                        .WithMany("Plans")
+                        .HasForeignKey("SubscriptionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Subscription");
+                });
+
+            modelBuilder.Entity("Entity.Models.Project", b =>
                 {
                     b.HasOne("Entity.Models.Auth.User", "User")
                         .WithMany("Projects")
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Entity.Models.Subscription.Subscription", b =>
+            modelBuilder.Entity("Entity.Models.Report", b =>
                 {
-                    b.HasOne("Entity.Models.Auth.User", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("Entity.Models.Project", "Project")
+                        .WithMany("Reports")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Entity.Models.Subscription.Plan", "Plan")
-                        .WithMany()
-                        .HasForeignKey("PlanId1")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("Entity.Models.Subscription", b =>
+                {
+                    b.HasOne("Entity.Models.Auth.User", "User")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Customer");
-
-                    b.Navigation("Plan");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Entity.Models.Auth.User", b =>
                 {
                     b.Navigation("Projects");
+
+                    b.Navigation("Subscriptions");
+                });
+
+            modelBuilder.Entity("Entity.Models.Project", b =>
+                {
+                    b.Navigation("Reports");
+                });
+
+            modelBuilder.Entity("Entity.Models.Subscription", b =>
+                {
+                    b.Navigation("Plans");
                 });
 #pragma warning restore 612, 618
         }
