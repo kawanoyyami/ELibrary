@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Models.Auth
 {
-    public class UserClaim : IdentityUserClaim<Guid>
+    public class UserClaim : IdentityUserClaim<long>
     {
     }
 }

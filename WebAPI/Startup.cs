@@ -15,11 +15,19 @@ using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using Entity;
 using Microsoft.EntityFrameworkCore;
-using Entity.Interfaces;
 using Entity.Repository;
 using Entity.Models;
 using Entity.Models.Auth;
 using Microsoft.AspNetCore.Identity;
+using KeyVault;
+using Auth0.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Entity.Repository.Interfaces;
+using WebAPI.Services;
+using WebAPI.Services.Interfaces;
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WebAPI
 {
@@ -35,45 +43,29 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer("DefaultConnection"), ServiceLifetime.Transient);
-
-            //Repository
-            services.AddScoped<IGenericRepository<Subscription>, GenericRepository<Subscription>>();
-
+                options.UseSqlServer(GetSecrets.ConnectionString), ServiceLifetime.Transient);
             //Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ELibrary.Web.API", Version = "v1" });
             });
 
-            //Identity 
-            services.AddIdentity<User, Role>(options =>
-            {
-                options.Password.RequiredLength = 8;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequiredUniqueChars = 0;
-                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-. ";
-                options.User.RequireUniqueEmail = true;
-            })
-            .AddRoles<Role>()
-            .AddRoleManager<RoleManager<Role>>()
-            .AddEntityFrameworkStores<ApplicationContext>();
+            //Repository
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        
-                    };
-                });
+            //Service
+            services.AddScoped<IBookSevice, BookService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthorSevice, AuthorService>();
+            services.AddScoped<IProjectService, ProjectService>();
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddCors();
+
+            
 
             services.AddControllers();
         }
@@ -89,6 +81,11 @@ namespace WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ELibrary.Web.API v1"));
             }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
 
@@ -96,6 +93,8 @@ namespace WebAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {

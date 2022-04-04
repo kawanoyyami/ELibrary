@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entity.Models.Auth
 {
-    public class User : IdentityUser<Guid>
+    public class User : IdentityUser<long>
     {
         public string? FullName { get; set; }
         public override string? Email { get; set; }

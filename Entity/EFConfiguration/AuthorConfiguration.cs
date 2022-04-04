@@ -20,10 +20,6 @@ namespace Entity.EFConfiguration
                 .IsRequired()
                 .HasMaxLength(32);
 
-            //builder.HasMany(a => a.Books)
-            //    .WithMany(b => b.Authors)
-            //    .UsingEntity(j => j.ToTable("AuthorBook"));
-
             builder.HasMany(a => a.Books)
                 .WithMany(b => b.Authors)
                 .UsingEntity<Dictionary<string, object>>(

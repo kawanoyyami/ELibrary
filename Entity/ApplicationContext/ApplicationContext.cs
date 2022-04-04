@@ -12,7 +12,7 @@ using Entity.Models;
 
 namespace Entity
 {
-    public class ApplicationContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
+    public class ApplicationContext : IdentityDbContext<User, Role, long, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
     {
         public DbSet<Plan>? Plans { get; set; }
         public DbSet<Subscription>? Subscriptions { get; set; }

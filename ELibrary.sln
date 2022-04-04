@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity", "Entity\Entity.csproj", "{98018283-C7EE-4076-846D-CBAA3DC5881E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyVault", "KeyVault\KeyVault.csproj", "{283DF88A-2A9E-42B3-B443-325B80333E09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyVault", "KeyVault\KeyVault.csproj", "{283DF88A-2A9E-42B3-B443-325B80333E09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -10,9 +10,9 @@ namespace Entity.Models
     public class Project : EntityBase
     {
         public string? Name { get; set; }
-        public virtual Guid UserId { get; set; }
+        public virtual long UserId { get; set; }
         public virtual User? User { get; set; }
         public virtual ICollection<Report>? Reports { get; set; }
-        public Guid ReportId { get; set; }
+        public long ReportId { get; set; }
     }
 }

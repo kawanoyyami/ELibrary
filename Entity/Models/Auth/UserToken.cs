@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Models.Auth
 {
-    public class UserToken : IdentityUserToken<Guid>
+    public class UserToken : IdentityUserToken<long>
     {
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KeyVault;
+using System;
 
 namespace Entity
 {
@@ -6,7 +7,7 @@ namespace Entity
     {
         static void Main(string[] args)
         {
-            using (var db = ApplicationContextFactory.CreateApplicationContext("DefaultConnection"))
+            using (var db = ApplicationContextFactory.CreateApplicationContext(GetSecrets.ConnectionString))
             {
                 if (db.Database.CanConnect())
                 {

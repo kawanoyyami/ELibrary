@@ -11,5 +11,6 @@ namespace Entity.Models
         public string? Title { get; set; }
         public int PageCount { get; set; }
         public virtual ICollection<Author>? Authors { get; set; }
+        public bool IsFree { get => true; }
     }
 }

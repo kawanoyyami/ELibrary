@@ -10,7 +10,7 @@ namespace Entity.Models
     public class EntityBase
     {
         [Key]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         public byte[]? RowVersion { get; set; }
     }
 }

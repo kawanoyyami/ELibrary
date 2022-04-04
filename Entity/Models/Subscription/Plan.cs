@@ -13,7 +13,7 @@ namespace Entity.Models
 
         [Range(0, 1 << 20)]
         public decimal PricePerMonth { get; set; }
-        public Guid SubscriptionId { get; set; }
+        public long SubscriptionId { get; set; }
         public virtual Subscription? Subscription { get; set; }
     }
 }
