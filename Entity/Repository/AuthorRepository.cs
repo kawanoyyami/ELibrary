@@ -21,6 +21,13 @@ namespace Entity.Repository
             return author;
         }
 
+        public async Task DeleteAuthor(long id)
+        {
+            var res = await _context.Set<Author>().FirstOrDefaultAsync(b => b.Id == id);
+
+            await Delete(res);
+        }
+
         public async Task<ICollection<Book>> GetBook(long id)
         {
             var res = await _context.Authors.Include("Books").FirstOrDefaultAsync(b => b.Id == id);

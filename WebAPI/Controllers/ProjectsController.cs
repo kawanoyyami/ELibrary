@@ -20,9 +20,14 @@ namespace WebAPI.Controllers
 
             return Ok(result);
         }
+        [HttpGet("{id}/reports")]
+        public async Task<IActionResult> GetProjectReports (long id)
+        {
+            var res = await _projectService.GetReports(id);
+            return Ok(res);
+        }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin,User")] @TO-DO uncomment this
         public async Task<IActionResult> DeleteProject(long id)
         {
             await _projectService.DeleteProject(id);
@@ -30,7 +35,7 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> UpdateProject([FromBody] ProjectUpdateDto userModel)
         {
             await _projectService.UpdateProject(userModel);

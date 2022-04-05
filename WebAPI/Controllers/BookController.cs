@@ -35,13 +35,13 @@ namespace WebAPI.Controllers
             await _bookSevice.DeleteBook(id);
             return Ok();
         }
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> UpdateBook([FromBody] BookUpdateDto bookModel)
         {
             await _bookSevice.UpdateBook(bookModel);
             return Ok();
         }
-        [HttpGet("{id}/Author")]
+        [HttpGet("{id}/Authors")]
         public async Task<IActionResult> GetBookAuthor(long id)
         {
             var result = await _bookSevice.GetAuthors(id);

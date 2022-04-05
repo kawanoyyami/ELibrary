@@ -21,9 +21,12 @@ namespace WebAPI.Services
             var res = await _authorRepository.AddAuthor(author);
         }
 
-        public Task DeleteAuthor(long id)
+        public async Task DeleteAuthor(long id)
         {
-            throw new NotImplementedException();
+            var author = await _authorRepository.GetEntity(id);
+            if (author == null)
+                throw new Exception("Author doesn't exist!");
+            await _authorRepository.Delete(author);
         }
 
         public async Task<AuthorResponseDto> GetAuthor(long id)

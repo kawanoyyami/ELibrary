@@ -44,6 +44,7 @@ namespace WebAPI
         {
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(GetSecrets.ConnectionString), ServiceLifetime.Transient);
+
             //Swagger
             services.AddSwaggerGen(c =>
             {
@@ -55,17 +56,17 @@ namespace WebAPI
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IReportRepository, ReportRepository>();
 
             //Service
             services.AddScoped<IBookSevice, BookService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthorSevice, AuthorService>();
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IReportSevice, ReportSevice>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddCors();
-
-            
 
             services.AddControllers();
         }

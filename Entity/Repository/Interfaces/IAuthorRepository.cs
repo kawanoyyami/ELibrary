@@ -13,6 +13,7 @@ namespace Entity.Repository.Interfaces
         Task<Author> GetByName(string name);
         Task<Author> AddAuthor(Author author);
         Task<ICollection<Book>> GetBook(long id);
+        Task DeleteAuthor(long id);
 
     }
 }

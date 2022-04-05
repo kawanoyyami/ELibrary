@@ -9,6 +9,6 @@ namespace WebAPI.Services.Interfaces
         Task DeleteBook(long id);
         Task<ICollection<AuthorResponseDto>> GetAuthors(long id);
         Task CreateBook(BookCreateDto bookCreate);
-        Task UpdateBook(BookUpdateDto bookUpdate);
+        Task<BookUpdateDto> UpdateBook(BookUpdateDto bookUpdate);
     }
 }

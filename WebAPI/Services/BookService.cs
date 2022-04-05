@@ -43,15 +43,18 @@ namespace WebAPI.Services
             await _bookRepository.Delete(book);
         }
 
-        public async Task UpdateBook(BookUpdateDto bookUpdate)
+        public async Task<BookUpdateDto> UpdateBook(BookUpdateDto bookUpdate)
         {
             var res = await _bookRepository.GetById(bookUpdate.Id);
 
             if (res == null)
                 throw new Exception("Book doesn't exist!");
 
-            await _bookRepository.UpdateBook(new Book { Id = bookUpdate.Id, Title = bookUpdate.Title, PageCount = bookUpdate.PageCount });
-
+            //await _bookRepository.UpdateBook(new Book { Title = bookUpdate.Title, PageCount = bookUpdate.PageCount });
+            res.Title = bookUpdate.Title;
+            res.PageCount = bookUpdate.PageCount;
+            await _bookRepository.Update(res);
+            return null;
         }
     }
 }

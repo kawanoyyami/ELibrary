@@ -20,6 +20,7 @@ namespace KeyVault
             //var authKey = client.GetSecret("AuthKey");
 
             var connectionString = client.GetSecret("ConnectionStrings");
+            //var connectionString = client.GetSecret("TestConnection");
 
             //AuthKey = authKey.Value.Value;
             ConnectionString = connectionString.Value.Value;

@@ -27,11 +27,17 @@ namespace WebAPI.Controllers
             await _authorSevice.CreateAuthor(authorCreateDto);
             return Ok();
         }
-        [HttpGet("{id}/Book")]
+        [HttpGet("{id}/Books")]
         public async Task<IActionResult> GetBookAuthor(long id)
         {
             var result = await _authorSevice.GetBooks(id);
             return Ok(result);
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBook(long id)
+        {
+            await _authorSevice.DeleteAuthor(id);
+            return Ok();
         }
     }
 }
