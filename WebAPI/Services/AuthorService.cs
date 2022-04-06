@@ -3,6 +3,7 @@ using WebAPI.Model.Dto.Author;
 using WebAPI.Services.Interfaces;
 using Entity.Repository.Interfaces;
 using AutoMapper;
+using Common.Exceptions;
 
 namespace WebAPI.Services
 {
@@ -25,7 +26,7 @@ namespace WebAPI.Services
         {
             var author = await _authorRepository.GetEntity(id);
             if (author == null)
-                throw new Exception("Author doesn't exist!");
+                throw new NotFoundException("Author doesn't exist!");
             await _authorRepository.Delete(author);
         }
 

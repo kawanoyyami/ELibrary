@@ -36,7 +36,7 @@ namespace WebAPI.Services
             var checkPass = await _signInManager.PasswordSignInAsync(loginUserQueryDto.UserName, loginUserQueryDto.Password, false, false);
             if (!checkPass.Succeeded || checkUsername == null)
             {
-                throw new InvalidFormException($"", "wrong username or password", StatusCodes.Status401Unauthorized);
+                throw new NotFoundException("User with same Username and Password not found!");
             }
             var user = await _userRepository.GetByUserName(loginUserQueryDto.UserName);
 
@@ -86,10 +86,6 @@ namespace WebAPI.Services
 
             if (check != null)
             {
-                // @TO-DO refactor
-                //var email = registerUserQueryDto.Email == check.Email ? "Email - " : $"{registerUserQueryDto.Email}";
-                //var username = registerUserQueryDto.UserName == check.UserName ? "UserName :" : $"{registerUserQueryDto.UserName}";
-
                 throw new EntryAlreadyExistsException($"User with similar Email already exist or UserName already taken!");
             }
 
@@ -98,9 +94,7 @@ namespace WebAPI.Services
             var result = await RegisterNewUser(user, registerUserQueryDto.Password);
             if (!result.Succeeded)
             {
-                throw new InvalidFormException("", result.Errors
-                                                            .Select(e => e.Description)
-                                                            .Aggregate((x, res) => res += x + "\n"));
+                throw new ValueOutOfRangeException("Wrong characteristic type!");
             }
 
             return _mapper.Map<UserResponseDto>(registerUserQueryDto);

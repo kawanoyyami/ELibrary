@@ -4,6 +4,7 @@ using Entity.Repository.Interfaces;
 using WebAPI.Model.Dto.Book;
 using WebAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Common.Exceptions;
 
 namespace WebAPI.Services
 {
@@ -39,7 +40,7 @@ namespace WebAPI.Services
         {
             var book = await _bookRepository.GetEntity(id);
             if (book == null)
-                throw new NullReferenceException("Book doesn't exist!");
+                throw new NotFoundException("Book doesn't exist!");
             await _bookRepository.Delete(book);
         }
 
@@ -48,7 +49,7 @@ namespace WebAPI.Services
             var res = await _bookRepository.GetById(bookUpdate.Id);
 
             if (res == null)
-                throw new Exception("Book doesn't exist!");
+                throw new NotFoundException("Book doesn't exist!");
 
             //await _bookRepository.UpdateBook(new Book { Title = bookUpdate.Title, PageCount = bookUpdate.PageCount });
             res.Title = bookUpdate.Title;

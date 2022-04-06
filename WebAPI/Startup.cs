@@ -28,6 +28,7 @@ using WebAPI.Services.Interfaces;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using WebAPI.Model.Auth;
+using WebAPI.Middlewares;
 
 namespace WebAPI
 {
@@ -177,8 +178,7 @@ namespace WebAPI
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
+                app.UseErrorHandling();
             }
 
             app.UseHttpsRedirection();
