@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Exceptions;
 using Entity.Models;
 using Entity.Repository.Interfaces;
 using WebAPI.Model.Dto.Project;
@@ -33,9 +34,11 @@ namespace WebAPI.Services
         public async Task<ProjectUpdateDto> UpdateProject(ProjectUpdateDto projectUpdate)
         {
             var res = await _projectRepository.GetById(projectUpdate.Id);
+
             //await _projectRepository.UpdateProject(new Project { Id = projectUpdate.Id, Name = projectUpdate.Name });
+            //@TO-DO refactor this 
             if (res == null)
-                throw new Exception("Project doesn't exist!");
+                throw new NotFoundException("Project doesn't exist!");
 
             res.Id = projectUpdate.Id;
             res.Name = projectUpdate.Name;

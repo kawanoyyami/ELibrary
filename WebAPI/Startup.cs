@@ -37,7 +37,6 @@ namespace WebAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
         }
 
         public IConfiguration Configuration { get; }
@@ -45,7 +44,7 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient); 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
 
             //Swagger
             services.AddSwaggerGen(c =>
@@ -94,7 +93,6 @@ namespace WebAPI
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddCors();
 
-
             //Identity 
             services.AddIdentity<User, Role>(options =>
             {
@@ -140,8 +138,6 @@ namespace WebAPI
              {
                  options.TokenValidationParameters = new TokenValidationParameters
                  {
-
-
                      ValidateIssuer = true,
                      ValidIssuer = authOptions.Issuer,
 
@@ -157,10 +153,8 @@ namespace WebAPI
              });
 
             services.AddAuthorization();
-
             services.AddControllers();
         }
-
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
@@ -187,8 +181,6 @@ namespace WebAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-
 
             app.UseEndpoints(endpoints =>
             {

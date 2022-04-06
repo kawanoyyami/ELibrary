@@ -29,7 +29,7 @@ namespace WebAPI.Services
             var user = await _userRepository.GetEntity(id);
 
             if (user == null)
-                throw new Exception("No such user exist");
+                throw new NotFoundException("No such user exist");
 
             var output = _mapper.Map<UserResponseDto>(user);
             return output;
@@ -40,7 +40,7 @@ namespace WebAPI.Services
             var res = await _userManager.FindByIdAsync(userUpdateDto.Id.ToString());
 
             if (res == null)
-                throw new EntryAlreadyExistsException("No such User Exist");
+                throw new NotFoundException("No such User Exist");
 
             await _userRepository.Update(res);
 
@@ -51,7 +51,7 @@ namespace WebAPI.Services
         {
             var res = await _userRepository.GetEntity(id);
             if (res == null)
-                throw new EntryAlreadyExistsException("No such User Exist");
+                throw new NotFoundException("No such User Exist");
 
             await _userRepository.DeleteUser(id);
         }
