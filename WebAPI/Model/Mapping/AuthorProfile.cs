@@ -4,9 +4,9 @@ using WebAPI.Model.Dto.Author;
 
 namespace WebAPI.Model.Mapping
 {
-    public class AuthorDtoToAuthor : Profile
+    public class AuthorProfile : Profile
     {
-        public AuthorDtoToAuthor()
+        public AuthorProfile()
         {
             CreateMap<AuthorCreateDto, Author>();
             CreateMap<Author, AuthorResponseDto>();

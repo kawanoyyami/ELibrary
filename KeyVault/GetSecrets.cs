@@ -5,7 +5,7 @@ namespace KeyVault
 {
     public class GetSecrets
     {
-        //public static string AuthKey { get; private set; }
+        public static string AuthKey { get; private set; }
         public static string ConnectionString { get; private set; }
 
         static GetSecrets()
@@ -17,12 +17,12 @@ namespace KeyVault
 
             var client = new SecretClient(new Uri(BASE_URI), new ClientSecretCredential(tenantId: TENANT_ID, clientId: CLIENT_ID, clientSecret: CLIENT_SECRET));
 
-            //var authKey = client.GetSecret("AuthKey");
+            var authKey = client.GetSecret("AuthKey");
 
             var connectionString = client.GetSecret("ConnectionStrings");
             //var connectionString = client.GetSecret("TestConnection");
 
-            //AuthKey = authKey.Value.Value;
+            AuthKey = authKey.Value.Value;
             ConnectionString = connectionString.Value.Value;
         }
     }

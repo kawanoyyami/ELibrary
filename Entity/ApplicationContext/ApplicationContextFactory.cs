@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using KeyVault;
 
 namespace Entity
 {
@@ -21,20 +20,20 @@ namespace Entity
 
             var configuration = builder.Build();
             string connectionString = configuration.GetConnectionString(connectionType);
-            string connectionStringKeyVault = GetSecrets.ConnectionString;
+            //string connectionStringKeyVault = GetSecrets.ConnectionString;
             
 
             //Console.WriteLine(connectionString);
-            Console.WriteLine(connectionStringKeyVault);
+            //Console.WriteLine(connectionStringKeyVault);
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
-            var options = optionsBuilder.UseSqlServer(connectionStringKeyVault).Options;
+            var options = optionsBuilder.UseSqlServer(connectionString).Options;
 
             return new ApplicationContext(options);
         }
         public ApplicationContext CreateDbContext(string[] args)
         {
-            return CreateApplicationContext(GetSecrets.ConnectionString);
+            return CreateApplicationContext("DefaultConnection");
         }
     }
 }

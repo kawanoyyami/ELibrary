@@ -15,7 +15,6 @@ namespace Entity.Repository
         public UserRepository(ApplicationContext context) : base(context)
         {
         }
-
         public async Task<User> CreateUser(User user)
         {
             await base.Create(user);

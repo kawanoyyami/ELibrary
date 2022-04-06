@@ -12,6 +12,7 @@ namespace Entity.Models
         public string? Name { get; set; }
         public virtual long UserId { get; set; }
         public virtual User? User { get; set; }
+
         public virtual ICollection<Report>? Reports { get; set; }
         public long ReportId { get; set; }
     }

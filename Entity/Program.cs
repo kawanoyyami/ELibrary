@@ -1,4 +1,5 @@
-﻿using KeyVault;
+﻿using Entity.Models.Auth;
+using Microsoft.AspNetCore.Identity;
 using System;
 
 namespace Entity
@@ -7,7 +8,7 @@ namespace Entity
     {
         static void Main(string[] args)
         {
-            using (var db = ApplicationContextFactory.CreateApplicationContext(GetSecrets.ConnectionString))
+            using (var db = ApplicationContextFactory.CreateApplicationContext("DefaultConnection"))
             {
                 if (db.Database.CanConnect())
                 {
@@ -15,6 +16,16 @@ namespace Entity
                 }
             }
             Console.Read();
+        }
+        public static async Task SeedIdentityRoles(RoleManager<Role> roleManager)
+        {
+            if (!roleManager.Roles.Any())
+            {
+                await roleManager.CreateAsync(new Role { Id = 1, Name = "user" });
+                await roleManager.CreateAsync(new Role { Id = 2, Name = "vendor" });
+                await roleManager.CreateAsync(new Role { Id = 3, Name = "operator" });
+                await roleManager.CreateAsync(new Role { Id = 4, Name = "admin" });
+            }
         }
     }
 }

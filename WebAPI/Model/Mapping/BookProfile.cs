@@ -4,9 +4,9 @@ using WebAPI.Model.Dto.Book;
 
 namespace WebAPI.Model
 {
-    public class BookDtoToBook : Profile
+    public class BookProfile : Profile
     {
-        public BookDtoToBook()
+        public BookProfile()
         {
             CreateMap<BookCreateDto, Book>();
             CreateMap<Book, BookResponseDto>();

@@ -19,7 +19,6 @@ using Entity.Repository;
 using Entity.Models;
 using Entity.Models.Auth;
 using Microsoft.AspNetCore.Identity;
-using KeyVault;
 using Auth0.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -37,15 +36,15 @@ namespace WebAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            
+
         }
-        
+
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(GetSecrets.ConnectionString), ServiceLifetime.Transient);
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient); 
 
             //Swagger
             services.AddSwaggerGen(c =>
@@ -61,19 +60,19 @@ namespace WebAPI
                     Type = SecuritySchemeType.Http
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
                 {
-                    Id = "Bearer",
-                    Type = ReferenceType.SecurityScheme
-                }
-            },
-            new List<string>()
-        }
-    });
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        },
+                        new List<string>()
+                    }
+                });
             });
 
             //Repository
@@ -140,8 +139,8 @@ namespace WebAPI
              {
                  options.TokenValidationParameters = new TokenValidationParameters
                  {
-                     
-                      
+
+
                      ValidateIssuer = true,
                      ValidIssuer = authOptions.Issuer,
 
@@ -170,7 +169,6 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ELibrary.Web.API v1"));
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "API");
@@ -190,7 +188,7 @@ namespace WebAPI
             app.UseAuthentication();
             app.UseAuthorization();
 
-            
+
 
             app.UseEndpoints(endpoints =>
             {

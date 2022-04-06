@@ -4,12 +4,11 @@ using WebAPI.Model.Dto.Project;
 
 namespace WebAPI.Model.Mapping
 {
-    public class ProjectsToDto : Profile
+    public class ProjectProfile : Profile
     {
-        public ProjectsToDto()
+        public ProjectProfile()
         {
             CreateMap<ProjectCreateDto, Project>();
-
             CreateMap<Project, ProjectResponseDto>();
         }
     }

@@ -29,8 +29,7 @@ namespace Entity
         {
             base.OnModelCreating(modelBuilder);
 
-            var asesmbly = typeof(ApplicationContext).Assembly;
-            modelBuilder.ApplyConfigurationsFromAssembly(asesmbly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
 
         }
 

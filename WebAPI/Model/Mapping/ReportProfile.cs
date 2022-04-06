@@ -4,9 +4,9 @@ using WebAPI.Model.Dto.Report;
 
 namespace WebAPI.Model.Mapping
 {
-    public class ReportDtoToReport : Profile
+    public class ReportProfile : Profile
     {
-        public ReportDtoToReport()
+        public ReportProfile()
         {
             CreateMap<ReportUpdateDto, Report>();
             CreateMap<Report, ReportResponseDto>();
