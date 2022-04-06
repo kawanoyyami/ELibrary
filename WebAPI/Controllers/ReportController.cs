@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebAPI.Model.Dto.Report;
 using WebAPI.Services.Interfaces;
 
@@ -6,6 +7,7 @@ namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class ReportController : ControllerBase
     {
         private IReportSevice _reportSevice { get; }

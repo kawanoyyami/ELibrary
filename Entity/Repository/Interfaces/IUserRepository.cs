@@ -13,7 +13,7 @@ namespace Entity.Repository.Interfaces
         Task<User> GetByUserName(string userName);
         Task<User> GetByEmail(string email);
         Task<User> CreateUser(User user);
-        Task<User> GetUSerNameAndEmail(string userName, string email);
+        Task<User> SingleUserNameAndEmail(string userName, string email);
         Task DeleteUser(long id);
         Task<ICollection<Project>> GetProjects(long id);
         Task<ICollection<Report>> GetReports(long id);

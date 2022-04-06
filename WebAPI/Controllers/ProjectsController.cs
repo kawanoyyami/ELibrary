@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebAPI.Model.Dto.Project;
 using WebAPI.Services.Interfaces;
 
 namespace WebAPI.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class ProjectsController : ControllerBase
     {

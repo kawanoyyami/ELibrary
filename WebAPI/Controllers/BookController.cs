@@ -1,5 +1,7 @@
 ﻿using Entity.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Model.Dto.Book;
 using WebAPI.Services.Interfaces;
@@ -8,6 +10,7 @@ namespace WebAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class BookController : ControllerBase
     {
         private IBookSevice _bookSevice { get; }
@@ -24,6 +27,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
         [HttpPost("add")]
+        //[Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles ="Admin")]
         public async Task<IActionResult> CreateBook([FromBody] BookCreateDto bookCreateDto)
         {
             await _bookSevice.CreateBook(bookCreateDto);

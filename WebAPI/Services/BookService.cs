@@ -39,7 +39,7 @@ namespace WebAPI.Services
         {
             var book = await _bookRepository.GetEntity(id);
             if (book == null)
-                throw new Exception("Book doesn't exist!");
+                throw new NullReferenceException("Book doesn't exist!");
             await _bookRepository.Delete(book);
         }
 

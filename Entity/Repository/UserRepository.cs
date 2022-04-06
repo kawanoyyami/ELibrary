@@ -34,7 +34,7 @@ namespace Entity.Repository
 
         public async Task<User> GetByUserName(string userName) => await _context.Set<User>().FirstOrDefaultAsync(x => x.UserName == userName);
 
-        public async Task<User> GetUSerNameAndEmail(string userName, string email) => await _context.Set<User>().FirstOrDefaultAsync(x => x.UserName == userName || x.Email == email);
+        public async Task<User> SingleUserNameAndEmail(string userName, string email) => await _context.Set<User>().FirstOrDefaultAsync(x => x.UserName == userName || x.Email == email);
         public async Task<ICollection<Project>> GetProjects(long id)
         {
             var res = await _context.Users.Include("Projects").FirstOrDefaultAsync(u => u.Id == id);

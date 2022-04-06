@@ -7,6 +7,7 @@ namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class AuthorController : ControllerBase
     {
         private IAuthorSevice _authorSevice { get; }
@@ -21,7 +22,6 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
         [HttpPost("add")]
-        [AllowAnonymous]
         public async Task<IActionResult> AddAuthor([FromBody] AuthorCreateDto authorCreateDto)
         {
             await _authorSevice.CreateAuthor(authorCreateDto);
