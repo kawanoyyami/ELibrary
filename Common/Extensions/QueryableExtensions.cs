@@ -1,4 +1,4 @@
-﻿namespace Common
+﻿namespace Common.Extensions
 {
     static class QueryableExtensions
     {

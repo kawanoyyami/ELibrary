@@ -22,13 +22,14 @@ namespace WebAPI.Controllers
             return Ok(res);
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteUser(long id)
         {
             await _userService.DeleteUser(id);
             return Ok();
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateUser([FromBody]UserUpdateDto userUpdateDto)
+        public async Task<IActionResult> UpdateUser(UserUpdateDto userUpdateDto)
         {
             var res = await _userService.UpdateUser(userUpdateDto);
             return Ok();

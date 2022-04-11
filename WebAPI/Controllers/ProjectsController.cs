@@ -38,7 +38,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateProject([FromBody] ProjectUpdateDto userModel)
+        public async Task<IActionResult> UpdateProject(ProjectUpdateDto userModel)
         {
             await _projectService.UpdateProject(userModel);
 
@@ -46,7 +46,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> CreateProject([FromBody] ProjectCreateDto projectCreateDto)
+        public async Task<IActionResult> CreateProject(ProjectCreateDto projectCreateDto)
         {
             await _projectService.CreateProject(projectCreateDto);
             return Ok();

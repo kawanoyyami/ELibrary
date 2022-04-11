@@ -1,5 +1,6 @@
 ﻿using Entity.Models.Auth;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Hosting;
 using System;
 
 namespace Entity

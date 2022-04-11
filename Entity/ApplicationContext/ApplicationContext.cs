@@ -14,12 +14,12 @@ namespace Entity
 {
     public class ApplicationContext : IdentityDbContext<User, Role, long, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
     {
-        public DbSet<Plan>? Plans { get; set; }
-        public DbSet<Subscription>? Subscriptions { get; set; }
-        public DbSet<Book>? Books { get; set; }
-        public DbSet<Project>? Projects { get; set; }
-        public DbSet<Author>? Authors { get; set; }
-        public DbSet<Report>? Reports { get; set; }
+        public DbSet<Plan> Plans { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Report> Reports { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {

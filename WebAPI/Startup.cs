@@ -29,6 +29,12 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using WebAPI.Model.Auth;
 using WebAPI.Middlewares;
+using MediatR.Registration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using MediatR;
 
 namespace WebAPI
 {
@@ -76,11 +82,9 @@ namespace WebAPI
             });
 
             //Repository
-            services.AddScoped<IBookRepository, BookRepository>();
+            
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IAuthorRepository, AuthorRepository>();
-            services.AddScoped<IProjectRepository, ProjectRepository>();
-            services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             //Service
             services.AddScoped<IBookSevice, BookService>();
@@ -91,6 +95,7 @@ namespace WebAPI
             services.AddScoped<IReportSevice, ReportSevice>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddCors();
 
             //Identity 
@@ -102,7 +107,7 @@ namespace WebAPI
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequiredUniqueChars = 0;
-                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-. ";
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.";
                 options.User.RequireUniqueEmail = true;
             })
             .AddRoles<Role>()

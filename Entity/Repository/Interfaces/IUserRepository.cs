@@ -1,5 +1,4 @@
-﻿using Entity.Models;
-using Entity.Models.Auth;
+﻿using Entity.Models.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +9,9 @@ namespace Entity.Repository.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task<User> GetByUserName(string userName);
-        Task<User> GetByEmail(string email);
+        Task<User> GetByUserName(string username);
         Task<User> CreateUser(User user);
-        Task<User> SingleUserNameAndEmail(string userName, string email);
+        Task<User> SingleUserNameAndEmail(string username, string email);
         Task DeleteUser(long id);
-        Task<ICollection<Project>> GetProjects(long id);
-        Task<ICollection<Report>> GetReports(long id);
     }
 }

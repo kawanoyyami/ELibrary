@@ -27,8 +27,8 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
         [HttpPost("add")]
-        //[Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles ="Admin")]  @TO-DO refactor + implement this
-        public async Task<IActionResult> CreateBook([FromBody] BookCreateDto bookCreateDto)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> CreateBook(BookCreateDto bookCreateDto)
         {
             await _bookSevice.CreateBook(bookCreateDto);
             return Ok();
@@ -40,10 +40,16 @@ namespace WebAPI.Controllers
             return Ok();
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateBook([FromBody] BookUpdateDto bookModel)
+        //[ValidateModelstate]
+        public async Task<IActionResult> UpdateBook(BookUpdateDto bookModel)
         {
-            await _bookSevice.UpdateBook(bookModel);
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                await _bookSevice.UpdateBook(bookModel);
+                return Ok();
+
+            }
+            return BadRequest(ModelState);
         }
         [HttpGet("{id}/Authors")]
         public async Task<IActionResult> GetBookAuthor(long id)

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entity.Models;
+using Entity.Repository;
 using Entity.Repository.Interfaces;
 using WebAPI.Model.Dto.Project;
 using WebAPI.Model.Dto.Report;
@@ -10,11 +11,11 @@ namespace WebAPI.Services
 {
     public class ReportSevice : IReportSevice
     {
-        private IProjectRepository _projectRepository { get; }
+        private IRepository<Project> _projectRepository { get; }
         private IMapper _mapper { get; }
-        private IReportRepository _reportRepository { get; }
+        private IRepository<Report> _reportRepository { get; }
 
-        public ReportSevice(IProjectRepository projectRepository, IMapper mapper, IReportRepository reportRepository)
+        public ReportSevice(IRepository<Project> projectRepository, IMapper mapper, IRepository<Report> reportRepository)
         {
             _projectRepository = projectRepository;
             _mapper = mapper;
@@ -23,7 +24,7 @@ namespace WebAPI.Services
 
         public async Task<ReportResponseDto> GetReport(long id)
         {
-            var report = await _reportRepository.GetEntity(id);
+            var report = await _reportRepository.GetByIdAsync(id);
             var response = _mapper.Map<ReportResponseDto>(report);
             return response;
         }
@@ -38,28 +39,30 @@ namespace WebAPI.Services
 
         public async Task DeleteReport(long id)
         {
-            var report = await _reportRepository.GetEntity(id);
+            var report = await _reportRepository.GetByIdAsync(id);
 
-            await _reportRepository.Delete(report);
+            await _reportRepository.Delete(id);
         }
 
         public async Task<UserResponseDto> GetReportUser(long id)
         {
-            var user = await _reportRepository.GetReportUser(id);
+            //@TO-Do reapair
+            var user = await _reportRepository.GetByIdAsync(id);
             var result = _mapper.Map<UserResponseDto>(user);
             return result;
         }
 
         public async Task CreateReport(ReportCreateDto reportCreateDto)
         {
-            var project = await _projectRepository.GetById(reportCreateDto.ProjectId);
+            var project = await _projectRepository.GetByIdAsync(reportCreateDto.ProjectId);
             var report = _mapper.Map<Report>(reportCreateDto);
-            await _reportRepository.CreateReport(report);
+            await _reportRepository.AddAsync(report);
         }
 
         public async Task<ProjectResponseDto> GetReportProject(long id)
         {
-            var project = await _reportRepository.GetReportProject(id);
+            var project = await _reportRepository.GetByIdAsync(id);
+            //TO-DO repair
             var result = _mapper.Map<ProjectResponseDto>(project);
             return result;
         }

@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
         [HttpPost("add")]
-        public async Task<IActionResult> AddAuthor([FromBody] AuthorCreateDto authorCreateDto)
+        public async Task<IActionResult> AddAuthor(AuthorCreateDto authorCreateDto)
         {
             await _authorSevice.CreateAuthor(authorCreateDto);
             return Ok();
@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}/Books")]
         public async Task<IActionResult> GetBookAuthor(long id)
         {
-            var result = await _authorSevice.GetBooks(id);
+            var result = await _authorSevice.GetBook(id);
             return Ok(result);
         }
         [HttpDelete("{id}")]

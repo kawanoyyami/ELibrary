@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Common.Exceptions;
+using Newtonsoft.Json;
 using System.Net;
 
 namespace WebAPI.Middlewares
@@ -20,21 +21,32 @@ namespace WebAPI.Middlewares
             {
                 await _next.Invoke(context);
             }
+            catch(NotFoundException nex)
+            {
+                _logger.LogError(nex, "An exeption has occured");
+                await HandleExceptionAsync(context, HttpStatusCode.NotFound, nex.Message);
+            }
+            catch(ValidatioException vex)
+            {
+                _logger.LogError(vex, "An exeption has occured");
+                await HandleExceptionAsync(context, HttpStatusCode.BadRequest, vex.Message);
+            }
+
             catch(Exception ex)
             {
                 _logger.LogError(ex, "An exeption has occured");
                 await HandleExceptionAsync(context);
             }
         }
-        private static Task HandleExceptionAsync(HttpContext context)
+        private static Task HandleExceptionAsync(HttpContext context, HttpStatusCode? code = null, string message = null)
         {
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             context.Response.ContentType = "application/json";
 
             return context.Response.WriteAsync(JsonConvert.SerializeObject(new
             {
-                StatusCode = context.Response.StatusCode,
-                Message = "Internal server error. Please contact the development team."
+                StatusCode = code ?? HttpStatusCode.InternalServerError,
+                Message = message ?? "Internal server error. Please contact the development team."
             }));
         }
     }

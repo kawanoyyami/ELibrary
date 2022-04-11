@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Common.Exceptions;
 using Entity.Models.Auth;
+using Entity.Repository;
 using Entity.Repository.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -82,7 +83,7 @@ namespace WebAPI.Services
 
         public async Task<UserResponseDto> RegisterUser(RegisterUserQueryDto registerUserQueryDto)
         {
-            var check = await _userRepository.SingleUserNameAndEmail(userName: registerUserQueryDto.UserName, email: registerUserQueryDto.Email);
+            var check = await _userRepository.SingleUserNameAndEmail(username: registerUserQueryDto.UserName, email: registerUserQueryDto.Email);
 
             if (check != null)
             {
@@ -105,7 +106,7 @@ namespace WebAPI.Services
 
             if (result.Succeeded)
             {
-                await _userRepository.Save();
+                await _userRepository.SaveChangesAsync();
             }
 
             return result;

@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Common.Exceptions;
+using Entity.Models;
 using Entity.Models.Auth;
-using Entity.Repository.Interfaces;
+using Entity.Repository;
 using Microsoft.AspNetCore.Identity;
 using WebAPI.Model.Dto.Project;
 using WebAPI.Model.Dto.Report;
@@ -13,11 +14,11 @@ namespace WebAPI.Services
 {
     public class UserService : IUserService
     {
-        private IUserRepository _userRepository { get; }
-        private IProjectRepository _projectRepository { get; }
+        private readonly IRepository<User> _userRepository;
+        private IRepository<Project> _projectRepository { get; }
         private IMapper _mapper { get; }
         private UserManager<User> _userManager { get; }
-        public UserService(UserManager<User> usermanager, IUserRepository userRepository, IMapper mapper, IProjectRepository projectRepository)
+        public UserService(UserManager<User> usermanager, IRepository<User> userRepository, IMapper mapper, IRepository<Project> projectRepository)
         {
             _userManager = usermanager;
             _userRepository = userRepository;
@@ -26,7 +27,7 @@ namespace WebAPI.Services
         }
         public async Task<UserResponseDto> GetUser(long id)
         {
-            var user = await _userRepository.GetEntity(id);
+            var user = await _userRepository.GetByIdAsync(id);
 
             if (user == null)
                 throw new NotFoundException("No such user exist");
@@ -49,16 +50,16 @@ namespace WebAPI.Services
 
         public async Task DeleteUser(long id)
         {
-            var res = await _userRepository.GetEntity(id);
+            var res = await _userRepository.GetByIdAsync(id);
             if (res == null)
                 throw new NotFoundException("No such User Exist");
 
-            await _userRepository.DeleteUser(id);
+            await _userRepository.Delete(id);
         }
 
         public async Task<ICollection<ProjectResponseDto>> GetUserProject(long id)
         {
-            var res = await _userRepository.GetProjects(id);
+            var res = await _userRepository.GetByIdAsync(id);
 
             var output = _mapper.Map<ICollection<ProjectResponseDto>>(res);
 
@@ -67,7 +68,7 @@ namespace WebAPI.Services
 
         public async Task<ICollection<ReportResponseDto>> GetUserReport(long id)
         {
-            var allUserReports = await _projectRepository.GetAllUserReports(id);
+            var allUserReports = await _projectRepository.GetByIdAsync(id);
 
             var output = _mapper.Map<ICollection<ReportResponseDto>>(allUserReports);
 

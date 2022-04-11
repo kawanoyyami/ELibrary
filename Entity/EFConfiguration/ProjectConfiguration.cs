@@ -27,7 +27,7 @@ namespace Entity.EFConfiguration
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.Property(p => p.RowVersion)
-                .IsRowVersion();
+                .IsRowVersion();    
         }
     }
 }

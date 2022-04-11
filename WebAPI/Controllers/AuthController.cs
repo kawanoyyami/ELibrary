@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
         }
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<IActionResult> Create([FromBody] RegisterUserQueryDto registerUser)
+        public async Task<IActionResult> Create(RegisterUserQueryDto registerUser)
         {
             var result = await _authSevice.RegisterUser(registerUser);
             return Ok(result);
@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginUserQueryDto loginUser)
+        public async Task<IActionResult> Login(LoginUserQueryDto loginUser)
         {
             var result = await _authSevice.Login(loginUser);
             return Ok(result);

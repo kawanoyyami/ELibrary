@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateReport([FromBody] ReportUpdateDto reportUpdateDto)
+        public async Task<IActionResult> UpdateReport(ReportUpdateDto reportUpdateDto)
         {
             await _reportSevice.UpdateReport(reportUpdateDto);
             return Ok();
@@ -45,7 +45,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> CreateReport([FromBody] ReportCreateDto projectCreateDto)
+        public async Task<IActionResult> CreateReport(ReportCreateDto projectCreateDto)
         {
             await _reportSevice.CreateReport(projectCreateDto);
 
