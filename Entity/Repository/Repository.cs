@@ -1,5 +1,6 @@
 ﻿using Common.Exceptions;
 using Entity.Models;
+using Entity.Models.Auth;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Repository
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntityBase
     {
         public readonly ApplicationContext _context;
         public Repository(ApplicationContext context)
@@ -43,12 +44,7 @@ namespace Entity.Repository
                     query = query.Include(include);
                 }
             }
-            await query.FirstOrDefaultAsync(x => x.Id == id);
-            return null;
-        }
-        public async Task<TEntity> GetEntity(long id)
-        {
-            return await _context.Set<TEntity>().FindAsync(id);
+            return await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<TEntity>> ListAsync() => await _context.Set<TEntity>().ToListAsync();

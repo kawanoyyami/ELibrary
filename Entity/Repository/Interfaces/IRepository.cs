@@ -1,4 +1,5 @@
 ﻿using Entity.Models;
+using Entity.Models.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace Entity.Repository
 {
-    public interface IRepository<TEntity>
+    public interface IRepository<TEntity> where TEntity : IEntityBase
     {
-        Task<TEntity> GetByIdAsync(long id, List<string> includes = null) ;
+        Task<TEntity> GetByIdAsync(long id, List<string> includes = null);
         Task<List<TEntity>> ListAsync();
         Task AddAsync(TEntity entity);
         Task Update(TEntity entity);
         Task Delete(long id);
         IQueryable<TEntity> Read();
         Task<int> SaveChangesAsync();
-
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Repository
 {
-    public class UserRepository : Repository<User> where User : class, IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         public UserRepository(ApplicationContext context) : base(context)
         {
