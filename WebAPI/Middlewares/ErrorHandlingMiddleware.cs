@@ -29,22 +29,22 @@ namespace WebAPI.Middlewares
             catch(ValidatioException vex)
             {
                 _logger.LogError(vex, "An ValidatioException has occured");
-                await HandleExceptionAsync(context, HttpStatusCode.BadRequest, vex.Message);
+                await HandleExceptionAsync(context, HttpStatusCode.Forbidden, vex.Message);
             }
             catch(EntryAlreadyExistsException exx)
             {
                 _logger.LogError(exx, "An EntryAlreadyExistsException has occured");
-                await HandleExceptionAsync(context, HttpStatusCode.BadRequest, exx.Message);
+                await HandleExceptionAsync(context, HttpStatusCode.Conflict, exx.Message);
             }
             catch(NoAccessException ex)
             {
                 _logger.LogError(ex, "An NoAccessException has occured");
-                await HandleExceptionAsync(context, HttpStatusCode.BadRequest, ex.Message);
+                await HandleExceptionAsync(context, HttpStatusCode.Unauthorized, ex.Message);
             }
             catch(ValueOutOfRangeException ex)
             {
                 _logger.LogError(ex, "An ValueOutOfRangeException has occured");
-                await HandleExceptionAsync(context, HttpStatusCode.BadRequest, ex.Message);
+                await HandleExceptionAsync(context, HttpStatusCode.RequestedRangeNotSatisfiable, ex.Message);
             }
             catch(Exception ex)
             {
@@ -54,7 +54,8 @@ namespace WebAPI.Middlewares
         }
         private static Task HandleExceptionAsync(HttpContext context, HttpStatusCode? code = null, string message = null)
         {
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            
+            context.Response.StatusCode = (int)code;
             context.Response.ContentType = "application/json";
 
             return context.Response.WriteAsync(JsonConvert.SerializeObject(new

@@ -1,4 +1,5 @@
 ﻿using Common.Exceptions;
+using Common.Models.PagedRequestModels;
 using Entity.Models;
 using Entity.Models.Auth;
 using Microsoft.EntityFrameworkCore;
@@ -8,16 +9,26 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Entity.Extensions;
+using AutoMapper;
 
 namespace Entity.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntityBase
     {
         public readonly ApplicationContext _context;
+        private readonly IMapper _mapper;
+        public Repository(ApplicationContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
+
         public Repository(ApplicationContext context)
         {
             _context = context;
         }
+
         public async Task AddAsync(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
@@ -62,5 +73,7 @@ namespace Entity.Repository
             _context.Set<TEntity>().Update(entity);
             await SaveChangesAsync();
         }
+        public async Task<PaginatedResult<TDto>> GetPagedData<TDto>(PagedRequest pagedRequest) where TDto : class =>
+            await _context.Set<TEntity>().CreatePaginatedResultAsync<TEntity, TDto>(pagedRequest, _mapper);
     }
 }

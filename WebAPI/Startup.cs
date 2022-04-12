@@ -144,6 +144,7 @@ namespace WebAPI
 
             if (env.IsDevelopment())
             {
+                //app.UseErrorHandling(); @TO-DO uncoment this 
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
@@ -152,10 +153,7 @@ namespace WebAPI
                     c.OAuthClientId(Configuration["Authentication:ClientId"]);
                 });
             }
-            else
-            {
-                app.UseErrorHandling();
-            }
+            app.UseErrorHandling();
 
             app.UseHttpsRedirection();
 

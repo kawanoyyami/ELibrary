@@ -1,4 +1,5 @@
-﻿using Entity.Models;
+﻿using Common.Models.PagedRequestModels;
+using Entity.Models;
 using Entity.Models.Auth;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,6 @@ namespace Entity.Repository
         Task Delete(long id);
         IQueryable<TEntity> Read();
         Task<int> SaveChangesAsync();
+        Task<PaginatedResult<TDto>> GetPagedData<TDto>(PagedRequest pagedRequest) where TDto : class;
     }
 }

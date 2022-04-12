@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Common.Exceptions
 {
+    [Serializable]
     public class ApiException : Exception
     {
-        public HttpStatusCode Code { get; }
+        public HttpStatusCode Code { get; } = HttpStatusCode.InternalServerError;
 
         public ApiException(HttpStatusCode code, string message) : base(message)
         {
