@@ -7,7 +7,7 @@ namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    [Authorize(Roles = "admin,FreeUser,PaidUser")]
     public class ReportController : ControllerBase
     {
         private IReportSevice _reportSevice { get; }
@@ -23,6 +23,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteReport(long id)
         {
             await _reportSevice.DeleteReport(id);
@@ -30,6 +31,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateReport(ReportUpdateDto reportUpdateDto)
         {
             await _reportSevice.UpdateReport(reportUpdateDto);
@@ -45,6 +47,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateReport(ReportCreateDto projectCreateDto)
         {
             await _reportSevice.CreateReport(projectCreateDto);

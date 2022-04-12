@@ -10,7 +10,6 @@ namespace WebAPI.Services.Interfaces
         Task<ReportWithProjectDto> GetReportWithProjects(long id);
         Task<ReportResponseDto> UpdateReport(ReportUpdateDto reportUpdateDto);
         Task DeleteReport (long id);
-        Task<UserResponseDto> GetReportUser(long id);
         Task CreateReport(ReportCreateDto reportCreateDto);
     }
 }

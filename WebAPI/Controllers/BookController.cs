@@ -10,7 +10,7 @@ namespace WebAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "admin,FreeUser,PaidUser")]
     public class BookController : ControllerBase
     {
         private IBookSevice _bookSevice { get; }
@@ -34,13 +34,14 @@ namespace WebAPI.Controllers
             return Ok();
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteBook(long id)
         {
             await _bookSevice.DeleteBook(id);
             return Ok();
         }
         [HttpPut]
-        //[ValidateModelstate]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateBook(BookUpdateDto bookModel)
         {
             if (ModelState.IsValid)

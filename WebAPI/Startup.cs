@@ -1,39 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using Entity;
 using Microsoft.EntityFrameworkCore;
 using Entity.Repository;
-using Entity.Models;
 using Entity.Models.Auth;
 using Microsoft.AspNetCore.Identity;
-using Auth0.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Entity.Repository.Interfaces;
 using WebAPI.Services;
 using WebAPI.Services.Interfaces;
 using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
 using WebAPI.Model.Auth;
 using WebAPI.Middlewares;
-using MediatR.Registration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using MediatR;
 
 namespace WebAPI
@@ -82,7 +60,6 @@ namespace WebAPI
             });
 
             //Repository
-            
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 

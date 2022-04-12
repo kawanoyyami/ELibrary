@@ -21,17 +21,31 @@ namespace WebAPI.Middlewares
             {
                 await _next.Invoke(context);
             }
-            catch(NotFoundException nex)
+            catch(NotFoundException notfoundex)
             {
-                _logger.LogError(nex, "An exeption has occured");
-                await HandleExceptionAsync(context, HttpStatusCode.NotFound, nex.Message);
+                _logger.LogError(notfoundex, "An NotFoundException has occured");
+                await HandleExceptionAsync(context, HttpStatusCode.NotFound, notfoundex.Message);
             }
             catch(ValidatioException vex)
             {
-                _logger.LogError(vex, "An exeption has occured");
+                _logger.LogError(vex, "An ValidatioException has occured");
                 await HandleExceptionAsync(context, HttpStatusCode.BadRequest, vex.Message);
             }
-
+            catch(EntryAlreadyExistsException exx)
+            {
+                _logger.LogError(exx, "An EntryAlreadyExistsException has occured");
+                await HandleExceptionAsync(context, HttpStatusCode.BadRequest, exx.Message);
+            }
+            catch(NoAccessException ex)
+            {
+                _logger.LogError(ex, "An NoAccessException has occured");
+                await HandleExceptionAsync(context, HttpStatusCode.BadRequest, ex.Message);
+            }
+            catch(ValueOutOfRangeException ex)
+            {
+                _logger.LogError(ex, "An ValueOutOfRangeException has occured");
+                await HandleExceptionAsync(context, HttpStatusCode.BadRequest, ex.Message);
+            }
             catch(Exception ex)
             {
                 _logger.LogError(ex, "An exeption has occured");

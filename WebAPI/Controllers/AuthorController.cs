@@ -7,7 +7,7 @@ namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    [Authorize(Roles = "admin,FreeUser,PaidUser")]
     public class AuthorController : ControllerBase
     {
         private IAuthorSevice _authorSevice { get; }
@@ -22,6 +22,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
         [HttpPost("add")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AddAuthor(AuthorCreateDto authorCreateDto)
         {
             await _authorSevice.CreateAuthor(authorCreateDto);
@@ -34,6 +35,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteBook(long id)
         {
             await _authorSevice.DeleteAuthor(id);

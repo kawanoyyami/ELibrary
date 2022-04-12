@@ -43,15 +43,6 @@ namespace WebAPI.Services
 
             await _reportRepository.Delete(id);
         }
-
-        public async Task<UserResponseDto> GetReportUser(long id)
-        {
-            //@TO-Do reapair
-            var user = await _reportRepository.GetByIdAsync(id);
-            var result = _mapper.Map<UserResponseDto>(user);
-            return result;
-        }
-
         public async Task CreateReport(ReportCreateDto reportCreateDto)
         {
             var project = await _projectRepository.GetByIdAsync(reportCreateDto.ProjectId);
