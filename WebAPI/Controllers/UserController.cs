@@ -37,13 +37,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}/projects")]
         public async Task<IActionResult> GetUserProjects(long id)
         {
-            var res = await _userService.GetUserProject(id);
-            return Ok(res);
-        }
-        [HttpGet("{id}/reports")]
-        public async Task<IActionResult> GetUserReports(long id)
-        {
-            var res = await _userService.GetUserReport(id);
+            var res = await _userService.GetUserWithProjects(id);
             return Ok(res);
         }
     }

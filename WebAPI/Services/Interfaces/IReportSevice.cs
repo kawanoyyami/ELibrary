@@ -7,10 +7,10 @@ namespace WebAPI.Services.Interfaces
     public interface IReportSevice
     {
         Task<ReportResponseDto> GetReport(long id);
+        Task<ReportWithProjectDto> GetReportWithProjects(long id);
         Task<ReportResponseDto> UpdateReport(ReportUpdateDto reportUpdateDto);
         Task DeleteReport (long id);
         Task<UserResponseDto> GetReportUser(long id);
         Task CreateReport(ReportCreateDto reportCreateDto);
-        Task<ProjectResponseDto> GetReportProject(long id);
     }
 }

@@ -10,6 +10,8 @@ namespace WebAPI.Model.Mapping
         {
             CreateMap<ProjectCreateDto, Project>();
             CreateMap<Project, ProjectResponseDto>();
+            CreateMap<Project, ProjectWithReportsDto>()
+                .ForMember(x => x.Reports, Y => Y.MapFrom(z => z.Reports));
         }
     }
 }

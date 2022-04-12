@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}/project")]
         public async Task<IActionResult> GetProjectName(long id)
         {
-            var res = await _reportSevice.GetReportProject(id);
+            var res = await _reportSevice.GetReportWithProjects(id);
 
             return Ok(res);
         }

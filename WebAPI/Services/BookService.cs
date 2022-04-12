@@ -29,13 +29,12 @@ namespace WebAPI.Services
             var output = _mapper.Map<BookResponseDto>(res);
             return output;
         }
-        public async Task<ICollection<AuthorResponseDto>> GetAuthors(long id)
+        public async Task<BookWithAuthorsDto> GetBookWithAuthors(long id)
         {
-            var res = await _bookRepository.GetByIdAsync(id);  //@TO-DO make it to work
-            var output = _mapper.Map<ICollection<AuthorResponseDto>>(res);
+            var author = await _bookRepository.GetByIdWithIncludeAsync(id, b => b.Authors);
+            var output = _mapper.Map<BookWithAuthorsDto>(author);
             return output;
         }
-
         public async Task DeleteBook(long id)
         {
             var book = await _bookRepository.GetByIdAsync(id);
@@ -57,5 +56,7 @@ namespace WebAPI.Services
             await _bookRepository.Update(res);
             return null;
         }
+
+
     }
 }

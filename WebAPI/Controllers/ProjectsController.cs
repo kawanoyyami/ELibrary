@@ -25,7 +25,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}/reports")]
         public async Task<IActionResult> GetProjectReports (long id)
         {
-            var res = await _projectService.GetReports(id);
+            var res = await _projectService.GetProjectWithReports(id);
             return Ok(res);
         }
 

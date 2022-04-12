@@ -10,7 +10,8 @@ namespace WebAPI.Model.Mapping
         public AuthorProfile()
         {
             CreateMap<AuthorCreateDto, Author>();
-            CreateMap<Author, AuthorResponseDto>()
+            CreateMap<Author, AuthorResponseDto>();
+            CreateMap<Author, AuthorWithBooksDto>()
                 .ForMember(x => x.Books, Y => Y.MapFrom(z => z.Books));
         }
     }

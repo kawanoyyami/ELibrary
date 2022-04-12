@@ -15,15 +15,13 @@ namespace WebAPI.Services
     public class UserService : IUserService
     {
         private readonly IRepository<User> _userRepository;
-        private IRepository<Project> _projectRepository { get; }
         private IMapper _mapper { get; }
         private UserManager<User> _userManager { get; }
-        public UserService(UserManager<User> usermanager, IRepository<User> userRepository, IMapper mapper, IRepository<Project> projectRepository)
+        public UserService(UserManager<User> usermanager, IRepository<User> userRepository, IMapper mapper)
         {
             _userManager = usermanager;
             _userRepository = userRepository;
             _mapper = mapper;
-            _projectRepository = projectRepository;
         }
         public async Task<UserResponseDto> GetUser(long id)
         {
@@ -57,22 +55,11 @@ namespace WebAPI.Services
             await _userRepository.Delete(id);
         }
 
-        public async Task<ICollection<ProjectResponseDto>> GetUserProject(long id)
+        public async Task<UserWithProjectsDto> GetUserWithProjects(long id)
         {
-            var res = await _userRepository.GetByIdAsync(id);
-
-            var output = _mapper.Map<ICollection<ProjectResponseDto>>(res);
-
-            return output;
-        }
-
-        public async Task<ICollection<ReportResponseDto>> GetUserReport(long id)
-        {
-            var allUserReports = await _projectRepository.GetByIdAsync(id);
-
-            var output = _mapper.Map<ICollection<ReportResponseDto>>(allUserReports);
-
-            return output;
+            var project = await _userRepository.GetByIdWithIncludeAsync(id, u => u.Projects);
+            var res = _mapper.Map<UserWithProjectsDto>(project);
+            return res;
         }
     }
 }

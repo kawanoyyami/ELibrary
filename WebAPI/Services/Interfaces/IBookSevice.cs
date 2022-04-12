@@ -7,8 +7,9 @@ namespace WebAPI.Services.Interfaces
     {
         Task<BookResponseDto> GetBook(long id);
         Task DeleteBook(long id);
-        Task<ICollection<AuthorResponseDto>> GetAuthors(long id);
+        Task<BookWithAuthorsDto> GetBookWithAuthors(long id);
         Task CreateBook(BookCreateDto bookCreate);
         Task<BookUpdateDto> UpdateBook(BookUpdateDto bookUpdate);
+
     }
 }

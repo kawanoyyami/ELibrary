@@ -54,7 +54,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}/Authors")]
         public async Task<IActionResult> GetBookAuthor(long id)
         {
-            var result = await _bookSevice.GetAuthors(id);
+            var result = await _bookSevice.GetBookWithAuthors(id);
             return Ok(result);
         }
     }

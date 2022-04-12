@@ -11,6 +11,8 @@ namespace WebAPI.Model
             CreateMap<BookCreateDto, Book>();
             CreateMap<Book, BookResponseDto>();
             CreateMap<BookUpdateDto, Book>();
+            CreateMap<Book, BookWithAuthorsDto>()
+                .ForMember(x => x.Authors, Y => Y.MapFrom(z => z.Authors));
         }
     }
 }

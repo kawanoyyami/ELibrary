@@ -34,8 +34,7 @@ namespace Entity.Repository
             _context.Set<TEntity>().Remove(entityToDeleteFromdb);
             await SaveChangesAsync();
         }
-
-        public async Task<TEntity> GetByIdAsync(long id, params Expression<Func<TEntity, object>>[] includes)
+        public async Task<TEntity> GetByIdWithIncludeAsync(long id, params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> entities = _context.Set<TEntity>();
             if (includes != null)
@@ -46,6 +45,10 @@ namespace Entity.Repository
                 }
             }
             return await entities.FirstOrDefaultAsync(x => x.Id == id);
+        }
+        public async Task<TEntity> GetByIdAsync(long id)
+        {
+            return await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<TEntity>> ListAsync() => await _context.Set<TEntity>().ToListAsync();

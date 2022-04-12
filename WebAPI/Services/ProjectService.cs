@@ -55,10 +55,10 @@ namespace WebAPI.Services
             await _projectRepository.AddAsync(project);
         }
 
-        public async Task<ICollection<ReportResponseDto>> GetReports(long id)
+        public async Task<ProjectWithReportsDto> GetProjectWithReports(long id)
         {
-            var res = await _projectRepository.GetByIdAsync(id);
-            var output = _mapper.Map<ICollection<ReportResponseDto>>(res);
+            var report = await _projectRepository.GetByIdWithIncludeAsync(id, b => b.Reports);
+            var output = _mapper.Map<ProjectWithReportsDto>(report);
             return output;
         }
     }

@@ -8,6 +8,6 @@ namespace WebAPI.Services.Interfaces
         Task<AuthorResponseDto> GetAuthor(long id);
         Task DeleteAuthor(long id);
         Task CreateAuthor(AuthorCreateDto bookCreate);
-        Task<AuthorResponseDto> GetAuthorWithBooks(long id);
+        Task<AuthorWithBooksDto> GetAuthorWithBooks(long id);
     }
 }

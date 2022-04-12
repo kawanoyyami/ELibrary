@@ -40,11 +40,10 @@ namespace WebAPI.Services
             var output = _mapper.Map<AuthorResponseDto>(res);
             return output;
         }
-        public async Task<AuthorResponseDto> GetAuthorWithBooks(long id)
+        public async Task<AuthorWithBooksDto> GetAuthorWithBooks(long id)
         {
-            var book = await _authorRepository.GetByIdAsync(id, b => b.Books);
-            ;
-            var output = _mapper.Map<AuthorResponseDto>(book);
+            var book = await _authorRepository.GetByIdWithIncludeAsync(id, b => b.Books);
+            var output = _mapper.Map<AuthorWithBooksDto>(book);
             return output;
         }
     }
