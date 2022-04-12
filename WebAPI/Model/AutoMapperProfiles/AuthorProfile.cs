@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entity.Models;
 using WebAPI.Model.Dto.Author;
+using Entity.Models.Auth;
 
 namespace WebAPI.Model.Mapping
 {
@@ -9,7 +10,8 @@ namespace WebAPI.Model.Mapping
         public AuthorProfile()
         {
             CreateMap<AuthorCreateDto, Author>();
-            CreateMap<Author, AuthorResponseDto>();
+            CreateMap<Author, AuthorResponseDto>()
+                .ForMember(x => x.Books, Y => Y.MapFrom(z => z.Books));
         }
     }
 }

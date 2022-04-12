@@ -8,9 +8,9 @@ namespace Entity.Models
 {
     public class Book : EntityBase
     {
-        public string? Title { get; set; }
+        public string Title { get; set; }
         public int PageCount { get; set; }
-        public virtual ICollection<Author>? Authors { get; set; }
+        public virtual ICollection<Author> Authors { get; set; }
         public bool IsFree { get => true; }
     }
 }

@@ -1,7 +1,10 @@
-﻿namespace Entity.Models.Auth
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Entity.Models.Auth
 {
     public interface IEntityBase
     {
-        long Id { get; set; }
+        [Key]
+        public long Id { get; set; }
     }
 }

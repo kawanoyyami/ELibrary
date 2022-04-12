@@ -13,8 +13,6 @@ namespace WebAPI.Services
     {
         private readonly IRepository<Author> _authorRepository;
         private readonly IRepository<Book> _bookRepository;
-
-        //@TO-DO refactor all with GenericRepository
         private IMapper _mapper { get; }
         public AuthorService(IRepository<Author> authorRepository, IRepository<Book> genericRepository, IMapper mapper)
         {
@@ -42,13 +40,11 @@ namespace WebAPI.Services
             var output = _mapper.Map<AuthorResponseDto>(res);
             return output;
         }
-        public async Task<BookResponseDto> GetBook(long id)
+        public async Task<AuthorResponseDto> GetAuthorWithBooks(long id)
         {
-            //@TO-DO make it to work
-            //var author = _authorRepository.Get()
-            var res = await _bookRepository.GetByIdAsync(id);
-            //var res = _authorRepository.GetByIdAsync(id);
-            var output = _mapper.Map<BookResponseDto>(res);
+            var book = await _authorRepository.GetByIdAsync(id, b => b.Books);
+            ;
+            var output = _mapper.Map<AuthorResponseDto>(book);
             return output;
         }
     }

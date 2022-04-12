@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,17 +35,17 @@ namespace Entity.Repository
             await SaveChangesAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(long id, List<string> includes = null)
+        public async Task<TEntity> GetByIdAsync(long id, params Expression<Func<TEntity, object>>[] includes)
         {
-            var query = _context.Set<TEntity>().AsQueryable();
+            IQueryable<TEntity> entities = _context.Set<TEntity>();
             if (includes != null)
             {
-                foreach (string include in includes)
+                foreach (var include in includes)
                 {
-                    query = query.Include(include);
+                    entities = entities.Include(include);
                 }
             }
-            return await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
+            return await entities.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<TEntity>> ListAsync() => await _context.Set<TEntity>().ToListAsync();

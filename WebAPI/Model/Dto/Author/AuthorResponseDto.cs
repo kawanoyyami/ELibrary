@@ -13,5 +13,7 @@ namespace Entity.Models
         public string FullName { get; set; }
         public DateTime DOB { get; set; }
         public string? AreaOfInteresnt { get; set; }
+        public virtual ICollection<BookResponseDto> Books { get; set; }
+
     }
 }

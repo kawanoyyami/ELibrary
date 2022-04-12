@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}/Books")]
         public async Task<IActionResult> GetBookAuthor(long id)
         {
-            var result = await _authorSevice.GetBook(id);
+            var result = await _authorSevice.GetAuthorWithBooks(id);
             return Ok(result);
         }
         [HttpDelete("{id}")]

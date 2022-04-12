@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Models
 {
-    public class EntityBase : IEntityBase
+    public abstract class EntityBase : IEntityBase
     {
         [Key]
         public long Id { get; set; }
