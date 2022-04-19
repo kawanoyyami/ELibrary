@@ -52,7 +52,7 @@ namespace WebAPI.Middlewares
                 await HandleExceptionAsync(context);
             }
         }
-        private static Task HandleExceptionAsync(HttpContext context, HttpStatusCode? code = null, string message = null)
+        private static Task HandleExceptionAsync(HttpContext context, HttpStatusCode? code = null, string? message = null)
         {
             
             context.Response.StatusCode = (int)code;

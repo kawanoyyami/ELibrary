@@ -1,7 +1,6 @@
 ﻿using Entity.Models;
 using WebAPI.Model.Dto.Author;
 using WebAPI.Services.Interfaces;
-using Entity.Repository.Interfaces;
 using AutoMapper;
 using Common.Exceptions;
 using Entity.Repository;
@@ -29,20 +28,30 @@ namespace WebAPI.Services
         public async Task DeleteAuthor(long id)
         {
             var author = await _authorRepository.GetByIdAsync(id);
+
             if (author == null)
                 throw new NotFoundException("Author doesn't exist!");
+
             await _authorRepository.Delete(id);
         }
 
         public async Task<AuthorResponseDto> GetAuthor(long id)
         {
-            var res = await _authorRepository.GetByIdAsync(id);
-            var output = _mapper.Map<AuthorResponseDto>(res);
+            var author = await _authorRepository.GetByIdAsync(id);
+
+            if (author == null)
+                throw new NotFoundException("Author doesn't exist!");
+
+            var output = _mapper.Map<AuthorResponseDto>(author);
             return output;
         }
         public async Task<AuthorWithBooksDto> GetAuthorWithBooks(long id)
         {
             var book = await _authorRepository.GetByIdWithIncludeAsync(id, b => b.Books);
+
+            if (book == null)
+                throw new NotFoundException("Author doesn't exist!");
+
             var output = _mapper.Map<AuthorWithBooksDto>(book);
             return output;
         }

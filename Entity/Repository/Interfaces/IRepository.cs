@@ -21,5 +21,6 @@ namespace Entity.Repository
         IQueryable<TEntity> Read();
         Task<int> SaveChangesAsync();
         Task<PaginatedResult<TDto>> GetPagedData<TDto>(PagedRequest pagedRequest) where TDto : class;
+        Task<User> GetByUserName(string username);
     }
 }

@@ -2,7 +2,6 @@
 using Common.Exceptions;
 using Entity.Models;
 using Entity.Repository;
-using Entity.Repository.Interfaces;
 using WebAPI.Model.Dto.Project;
 using WebAPI.Model.Dto.Report;
 using WebAPI.Services.Interfaces;
@@ -13,7 +12,7 @@ namespace WebAPI.Services
     {
         private IRepository<Project> _projectRepository { get; }
         private IMapper _mapper { get; }
-        public ProjectService(IRepository<Project> projectRepository, IMapper mapper, IRepository<Project> genericRepository)
+        public ProjectService(IRepository<Project> projectRepository, IMapper mapper)
         {
             _projectRepository = projectRepository;
             _mapper = mapper;
@@ -22,6 +21,10 @@ namespace WebAPI.Services
         public async Task<ProjectResponseDto> GetProject(long id)
         {
             var res = await _projectRepository.GetByIdAsync(id);
+
+            if (res is null)
+                throw new NotFoundException("Project doesn't exist!");
+
             var output = _mapper.Map<ProjectResponseDto>(res);
             return output;
         }
@@ -29,8 +32,10 @@ namespace WebAPI.Services
         public async Task DeleteProject(long id)
         {
             var res = await _projectRepository.GetByIdAsync(id);
-            if (res == null)
+
+            if (res is null)
                 throw new NotFoundException("Project doesn't exist!");
+
             await _projectRepository.Delete(id);
         }
 
@@ -40,7 +45,7 @@ namespace WebAPI.Services
 
             //await _projectRepository.UpdateProject(new Project { Id = projectUpdate.Id, Name = projectUpdate.Name });
             //@TO-DO refactor this 
-            if (res == null)
+            if (res is null)
                 throw new NotFoundException("Project doesn't exist!");
 
             res.Id = projectUpdate.Id;
@@ -58,6 +63,10 @@ namespace WebAPI.Services
         public async Task<ProjectWithReportsDto> GetProjectWithReports(long id)
         {
             var report = await _projectRepository.GetByIdWithIncludeAsync(id, b => b.Reports);
+
+            if (report is null)
+                throw new NotFoundException("Project doesn't exist!");
+
             var output = _mapper.Map<ProjectWithReportsDto>(report);
             return output;
         }

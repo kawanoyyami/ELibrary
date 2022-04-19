@@ -2,7 +2,6 @@
 using Common.Exceptions;
 using Entity.Models.Auth;
 using Entity.Repository;
-using Entity.Repository.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -16,12 +15,12 @@ namespace WebAPI.Services
 {
     public class AuthService : IAuthService
     {
-        private IUserRepository _userRepository { get; }
+        private IRepository<User> _userRepository { get; }
         private IMapper _mapper { get; }
         private SignInManager<User> _signInManager { get; }
         private UserManager<User> _userManager { get; }
         private IOptions<AuthOptions> _authOptions { get; }
-        public AuthService(IUserRepository userRepository, IMapper mapper, SignInManager<User> signInManager, UserManager<User> userManager, IOptions<AuthOptions> options)
+        public AuthService(IRepository<User> userRepository, IMapper mapper, SignInManager<User> signInManager, UserManager<User> userManager, IOptions<AuthOptions> options)
         {
             _userRepository = userRepository;
             _mapper = mapper;
@@ -32,10 +31,8 @@ namespace WebAPI.Services
 
         public async Task<LoginUserResponseDto> Login(LoginUserQueryDto loginUserQueryDto)
         {
-            var checkUsername = _userRepository.GetByUserName(loginUserQueryDto.UserName);
-
             var checkPass = await _signInManager.PasswordSignInAsync(loginUserQueryDto.UserName, loginUserQueryDto.Password, false, false);
-            if (!checkPass.Succeeded || checkUsername == null)
+            if (!checkPass.Succeeded)
             {
                 throw new NotFoundException("User with same Username and Password not found!");
             }
@@ -58,6 +55,7 @@ namespace WebAPI.Services
             var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Sid, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(ClaimTypes.Email, user.Email)
                 };
@@ -83,11 +81,10 @@ namespace WebAPI.Services
 
         public async Task<UserResponseDto> RegisterUser(RegisterUserQueryDto registerUserQueryDto)
         {
-            var check = await _userRepository.SingleUserNameAndEmail(username: registerUserQueryDto.UserName, email: registerUserQueryDto.Email);
-
-            if (check != null)
+            var checkPass = await _signInManager.PasswordSignInAsync(registerUserQueryDto.UserName, registerUserQueryDto.Password, false, false);
+            if (!checkPass.Succeeded)
             {
-                throw new EntryAlreadyExistsException($"User with similar Email already exist or UserName already taken!");
+                throw new NotFoundException("User with same Username already exist!");
             }
 
             var user = _mapper.Map<User>(registerUserQueryDto);
@@ -95,7 +92,7 @@ namespace WebAPI.Services
             var result = await RegisterNewUser(user, registerUserQueryDto.Password);
             if (!result.Succeeded)
             {
-                throw new ValueOutOfRangeException("Wrong characteristic type!");
+                throw new ValueOutOfRangeException("Wrong characteristic(password) type!");
             }
 
             return _mapper.Map<UserResponseDto>(registerUserQueryDto);

@@ -27,7 +27,7 @@ namespace WebAPI.Services
         {
             var user = await _userRepository.GetByIdAsync(id);
 
-            if (user == null)
+            if (user is null)
                 throw new NotFoundException("No such user exist");
 
             var output = _mapper.Map<UserResponseDto>(user);
@@ -41,6 +41,12 @@ namespace WebAPI.Services
             if (res == null)
                 throw new NotFoundException("No such User Exist");
 
+            res.FullName = userUpdateDto.FullName;
+            res.UserName = userUpdateDto.UserName;
+            res.Email = userUpdateDto.Email;
+            res.PhoneNumber = userUpdateDto.PhoneNumber;
+            res.DOB = userUpdateDto.DOB;
+
             await _userRepository.Update(res);
 
             return null;
@@ -49,6 +55,7 @@ namespace WebAPI.Services
         public async Task DeleteUser(long id)
         {
             var res = await _userRepository.GetByIdAsync(id);
+
             if (res == null)
                 throw new NotFoundException("No such User Exist");
 
@@ -58,6 +65,10 @@ namespace WebAPI.Services
         public async Task<UserWithProjectsDto> GetUserWithProjects(long id)
         {
             var project = await _userRepository.GetByIdWithIncludeAsync(id, u => u.Projects);
+
+            if (project is null)
+                throw new NotFoundException("No such user exist");
+
             var res = _mapper.Map<UserWithProjectsDto>(project);
             return res;
         }

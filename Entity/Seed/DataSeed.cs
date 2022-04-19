@@ -28,12 +28,12 @@ namespace Entity.Seed
                 {
                     var user = new User
                     {
-                        FullName = "Vlados",
+                        FullName = "Anton Chigurh",
                         UserName = "admin",
                         Email = "admin@exemple.com",
                         EmailConfirmed = true,
+                        
                     };
-
 
                     var result = await userManager.CreateAsync(user, "123admin123");
                     if (result.Succeeded)
@@ -47,10 +47,11 @@ namespace Entity.Seed
                 {
                     var user = new User
                     {
-                        FullName = "Dimas",
+                        FullName = "Travis Bickle",
                         UserName = "FreeUser",
                         Email = "freeuser@exemple.com",
                         EmailConfirmed = true,
+                        DOB = new DateTime(1947, 5, 11, 0, 0, 0),
                     };
 
                     var result = await userManager.CreateAsync(user, "freeuser123");
@@ -65,10 +66,11 @@ namespace Entity.Seed
                 {
                     var user = new User
                     {
-                        FullName = "Felix",
+                        FullName = "Patrick Bateman",
                         UserName = "PaidUser",
                         Email = "paiduser@exemple.com",
                         EmailConfirmed = true,
+                        DOB = new DateTime(1961, 1, 21, 0, 0, 0),
                     };
 
                     var result = await userManager.CreateAsync(user, "paiduser123");
@@ -133,6 +135,16 @@ namespace Entity.Seed
                         PageCount = 100,
                     };
                     context.Books.Add(book);
+
+                    var author = new Author
+                    {
+                        FullName = "Clive Staples Lewis",
+                        AreaOfInteresnt = "Novelist",
+                        DOB = new DateTime(1963, 11, 22, 0, 0, 0),
+                        Books = new List<Book> { book }
+                    };
+                    context.Authors.Add(author);
+
                 }
                 {
                     var book = new Book
@@ -141,110 +153,108 @@ namespace Entity.Seed
                         PageCount = 100,
                     };
                     context.Books.Add(book);
-                }{
+
+                    var author = new Author
+                    {
+                        FullName = "Henry Rider Haggard",
+                        AreaOfInteresnt = "Novelist",
+                        DOB = new DateTime(1925, 4, 14, 0, 0, 0),
+                        Books = new List<Book> { book }
+                    };
+                    context.Authors.Add(author);
+                }
+                {
                     var book = new Book
                     {
                         Title = "The Adventures of Pinocchio",
                         PageCount = 100,
                     };
                     context.Books.Add(book);
-                }{
+
+                    var author = new Author
+                    {
+                        FullName = "Carlo Collodi",
+                        AreaOfInteresnt = "Writer",
+                        DOB = new DateTime(1826, 11, 24, 0, 0, 0),
+                        Books = new List<Book> { book }
+                    };
+                    context.Authors.Add(author);
+                }
+                {
                     var book = new Book
                     {
                         Title = "The Da Vinci Code",
                         PageCount = 100,
                     };
                     context.Books.Add(book);
-                }{
+
+                    var author = new Author
+                    {
+                        FullName = "Dan Brown",
+                        AreaOfInteresnt = "Writer",
+                        DOB = new DateTime(1964, 6, 22, 0, 0, 0),
+                        Books = new List<Book> { book }
+                    };
+                    context.Authors.Add(author);
+                }
+                {
                     var book = new Book
                     {
                         Title = "Harry Potter and the Chamber of Secrets",
                         PageCount = 100,
                     };
                     context.Books.Add(book);
-                }{
-                    var book = new Book
+
+                    var book2 = new Book
                     {
                         Title = "Harry Potter and the Prisoner of Azkaban",
                         PageCount = 100,
                     };
-                    context.Books.Add(book);
-                }{
-                    var book = new Book
+                    context.Books.Add(book2);
+
+
+                    var book3 = new Book
                     {
                         Title = "Harry Potter and the Goblet of Fire",
                         PageCount = 100,
                     };
-                    context.Books.Add(book);
-                }{
-                    var book = new Book
+                    context.Books.Add(book3);
+
+
+                    var book4 = new Book
                     {
                         Title = "Harry Potter and the Order of the Phoenix",
                         PageCount = 100,
                     };
-                    context.Books.Add(book);
-                }{
-                    var book = new Book
+                    context.Books.Add(book4);
+
+
+                    var book5 = new Book
                     {
                         Title = "Harry Potter and the Half-Blood Prince",
                         PageCount = 100,
                     };
-                    context.Books.Add(book);
-                }{
-                    var book = new Book
+                    context.Books.Add(book5);
+
+
+                    var book6 = new Book
                     {
                         Title = "Harry Potter and the Deathly Hallows",
                         PageCount = 100,
                     };
-                    context.Books.Add(book);
-                }
-            }
-            if(!context.Authors.Any())
-            {
-                {
-                    var author = new Author
-                    {
-                        FullName = "Clive Staples Lewis",
-                        AreaOfInteresnt = "Novelist",
-                        DOB = new DateTime(1963,11,22,0,0,0),
-                    };
-                    context.Authors.Add(author);
-                }
-                {
-                    var author = new Author
-                    {
-                        FullName = "Henry Rider Haggard",
-                        AreaOfInteresnt = "Novelist",
-                        DOB = new DateTime(1925,4,14,0,0,0),
-                    };
-                    context.Authors.Add(author);
-                }
-                {
-                    var author = new Author
-                    {
-                        FullName = "Carlo Collodi",
-                        AreaOfInteresnt = "Writer",
-                        DOB = new DateTime(1826,11,24,0,0,0),
-                    };
-                    context.Authors.Add(author);
-                }{
-                    var author = new Author
-                    {
-                        FullName = "Dan Brown",
-                        AreaOfInteresnt = "Writer",
-                        DOB = new DateTime(1964,6,22,0,0,0),
-                    };
-                    context.Authors.Add(author);
-                }{
+                    context.Books.Add(book6);
+
                     var author = new Author
                     {
                         FullName = "Joanne Rowling",
                         AreaOfInteresnt = "Writer",
-                        DOB = new DateTime(1965, 7, 31, 0,0,0),
+                        DOB = new DateTime(1965, 7, 31, 0, 0, 0),
+                        Books = new List<Book> { book, book2, book3, book4, book5, book6 }
                     };
                     context.Authors.Add(author);
                 }
             }
+
             await context.SaveChangesAsync();
         }
     }

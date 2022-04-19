@@ -24,11 +24,6 @@ namespace Entity.Repository
             _mapper = mapper;
         }
 
-        public Repository(ApplicationContext context)
-        {
-            _context = context;
-        }
-
         public async Task AddAsync(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
@@ -38,10 +33,6 @@ namespace Entity.Repository
         public async Task Delete(long id)
         {
             var entityToDeleteFromdb = await GetByIdAsync(id);
-            if (entityToDeleteFromdb == null)
-            {
-                throw new NotFoundException($"Entity of type {typeof(TEntity).Name} with id : {id} not found in db!");
-            }
             _context.Set<TEntity>().Remove(entityToDeleteFromdb);
             await SaveChangesAsync();
         }
@@ -57,10 +48,7 @@ namespace Entity.Repository
             }
             return await entities.FirstOrDefaultAsync(x => x.Id == id);
         }
-        public async Task<TEntity> GetByIdAsync(long id)
-        {
-            return await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
-        }
+        public async Task<TEntity> GetByIdAsync(long id) => await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<List<TEntity>> ListAsync() => await _context.Set<TEntity>().ToListAsync();
 
@@ -75,5 +63,6 @@ namespace Entity.Repository
         }
         public async Task<PaginatedResult<TDto>> GetPagedData<TDto>(PagedRequest pagedRequest) where TDto : class =>
             await _context.Set<TEntity>().CreatePaginatedResultAsync<TEntity, TDto>(pagedRequest, _mapper);
+        public async Task<User> GetByUserName(string username) => await _context.Set<User>().FirstOrDefaultAsync(x => x.UserName == username);
     }
 }

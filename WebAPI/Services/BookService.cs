@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Entity.Models;
-using Entity.Repository.Interfaces;
 using WebAPI.Model.Dto.Book;
 using WebAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -26,20 +25,30 @@ namespace WebAPI.Services
         public async Task<BookResponseDto> GetBook(long id)
         {
             var res = await _bookRepository.GetByIdAsync(id);
+
+            if (res is null)
+                throw new NotFoundException("Book doesn't exist!");
+
             var output = _mapper.Map<BookResponseDto>(res);
             return output;
         }
         public async Task<BookWithAuthorsDto> GetBookWithAuthors(long id)
         {
             var author = await _bookRepository.GetByIdWithIncludeAsync(id, b => b.Authors);
+
+            if (author is null)
+                throw new NotFoundException("Book doesn't exist!");
+
             var output = _mapper.Map<BookWithAuthorsDto>(author);
             return output;
         }
         public async Task DeleteBook(long id)
         {
             var book = await _bookRepository.GetByIdAsync(id);
+
             if (book == null)
                 throw new NotFoundException("Book doesn't exist!");
+
             await _bookRepository.Delete(id);
         }
 

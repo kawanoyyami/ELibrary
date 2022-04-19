@@ -20,11 +20,6 @@ namespace Entity
 
             var configuration = builder.Build();
             string connectionString = configuration.GetConnectionString(connectionType);
-            //string connectionStringKeyVault = GetSecrets.ConnectionString;
-            
-
-            //Console.WriteLine(connectionString);
-            //Console.WriteLine(connectionStringKeyVault);
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
             var options = optionsBuilder.UseSqlServer(connectionString).Options;

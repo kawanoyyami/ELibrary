@@ -1,4 +1,5 @@
-﻿using WebAPI.Model.Dto.Project;
+﻿using System.ComponentModel.DataAnnotations;
+using WebAPI.Model.Dto.Project;
 
 namespace WebAPI.Model.Dto.User
 {

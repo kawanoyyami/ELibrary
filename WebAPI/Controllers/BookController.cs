@@ -33,6 +33,7 @@ namespace WebAPI.Controllers
             await _bookSevice.CreateBook(bookCreateDto);
             return Ok();
         }
+
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteBook(long id)
