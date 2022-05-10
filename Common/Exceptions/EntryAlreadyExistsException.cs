@@ -7,7 +7,8 @@ namespace Common.Exceptions
 {
     public class EntryAlreadyExistsException : ApiException
     {
-        public EntryAlreadyExistsException(string message) : base(HttpStatusCode.BadRequest, message)
+        public override HttpStatusCode Code => HttpStatusCode.BadRequest;
+        public EntryAlreadyExistsException(string message) : base( message)
         {
         }
     }

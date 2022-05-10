@@ -21,9 +21,5 @@ namespace WebAPI.Model.Dto.User
         [MaxLength(320)]
         [EmailAddress]
         public string Email { get; set; }
-
-        [Required]
-        [Phone]
-        public string PhoneNumber { get; set; }
     }
 }

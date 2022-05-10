@@ -5,6 +5,7 @@ using WebAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Common.Exceptions;
 using Entity.Repository;
+using Common.Models.PagedRequestModels;
 
 namespace WebAPI.Services
 {
@@ -47,7 +48,7 @@ namespace WebAPI.Services
             var book = await _bookRepository.GetByIdAsync(id);
 
             if (book == null)
-                throw new NotFoundException("Book doesn't exist!");
+                throw new ValueOutOfRangeException($"Book could not be deleted because book with id: {id} not exist in database!");
 
             await _bookRepository.Delete(id);
         }
@@ -57,15 +58,18 @@ namespace WebAPI.Services
             var res = await _bookRepository.GetByIdAsync(bookUpdate.Id);
 
             if (res == null)
-                throw new NotFoundException("Book doesn't exist!");
+                throw new ValueOutOfRangeException($"Book could not be updated because book with id: {bookUpdate.Id} not exist in database!");
 
-            //await _bookRepository.UpdateBook(new Book { Title = bookUpdate.Title, PageCount = bookUpdate.PageCount });
             res.Title = bookUpdate.Title;
             res.PageCount = bookUpdate.PageCount;
             await _bookRepository.Update(res);
             return null;
         }
 
-
+        public async Task<PaginatedResult<BookResponseDto>> GetPagedBooks(PagedRequest pagedRequest)
+        {
+            var pagedBooks = await _bookRepository.GetPagedData<Book, BookResponseDto>(pagedRequest);
+            return pagedBooks;
+        }
     }
 }

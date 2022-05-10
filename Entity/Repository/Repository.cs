@@ -29,7 +29,7 @@ namespace Entity.Repository
             await _context.Set<TEntity>().AddAsync(entity);
             await SaveChangesAsync();
         }
-        
+
         public async Task Delete(long id)
         {
             var entityToDeleteFromdb = await GetByIdAsync(id);
@@ -39,6 +39,7 @@ namespace Entity.Repository
         public async Task<TEntity> GetByIdWithIncludeAsync(long id, params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> entities = _context.Set<TEntity>();
+
             if (includes != null)
             {
                 foreach (var include in includes)
@@ -46,7 +47,8 @@ namespace Entity.Repository
                     entities = entities.Include(include);
                 }
             }
-            return await entities.FirstOrDefaultAsync(x => x.Id == id);
+
+            return await entities.FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
         }
         public async Task<TEntity> GetByIdAsync(long id) => await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
 
@@ -61,8 +63,11 @@ namespace Entity.Repository
             _context.Set<TEntity>().Update(entity);
             await SaveChangesAsync();
         }
-        public async Task<PaginatedResult<TDto>> GetPagedData<TDto>(PagedRequest pagedRequest) where TDto : class =>
-            await _context.Set<TEntity>().CreatePaginatedResultAsync<TEntity, TDto>(pagedRequest, _mapper);
+        public async Task<PaginatedResult<TDto>> GetPagedData<TEntity, TDto>(PagedRequest pagedRequest) where TEntity : EntityBase
+                                                                                                    where TDto : class
+        {
+            return await _context.Set<TEntity>().CreatePaginatedResultAsync<TEntity, TDto>(pagedRequest, _mapper);
+        }
         public async Task<User> GetByUserName(string username) => await _context.Set<User>().FirstOrDefaultAsync(x => x.UserName == username);
     }
 }

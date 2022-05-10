@@ -21,47 +21,27 @@ namespace WebAPI.Middlewares
             {
                 await _next.Invoke(context);
             }
-            catch(NotFoundException notfoundex)
+            catch (Exception ex)
             {
-                _logger.LogError(notfoundex, "An NotFoundException has occured");
-                await HandleExceptionAsync(context, HttpStatusCode.NotFound, notfoundex.Message);
-            }
-            catch(ValidatioException vex)
-            {
-                _logger.LogError(vex, "An ValidatioException has occured");
-                await HandleExceptionAsync(context, HttpStatusCode.Forbidden, vex.Message);
-            }
-            catch(EntryAlreadyExistsException exx)
-            {
-                _logger.LogError(exx, "An EntryAlreadyExistsException has occured");
-                await HandleExceptionAsync(context, HttpStatusCode.Conflict, exx.Message);
-            }
-            catch(NoAccessException ex)
-            {
-                _logger.LogError(ex, "An NoAccessException has occured");
-                await HandleExceptionAsync(context, HttpStatusCode.Unauthorized, ex.Message);
-            }
-            catch(ValueOutOfRangeException ex)
-            {
-                _logger.LogError(ex, "An ValueOutOfRangeException has occured");
-                await HandleExceptionAsync(context, HttpStatusCode.RequestedRangeNotSatisfiable, ex.Message);
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError(ex, "An exeption has occured");
-                await HandleExceptionAsync(context);
+                _logger.LogError(ex, "An Exception has occured");
+
+                await HandleExceptionAsync(context, ex);
             }
         }
-        private static Task HandleExceptionAsync(HttpContext context, HttpStatusCode? code = null, string? message = null)
+        private static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            
-            context.Response.StatusCode = (int)code;
+
+
+            if (ex is ApiException apiEx)
+                context.Response.StatusCode = (int)apiEx.Code;
+            else
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError; 
+
             context.Response.ContentType = "application/json";
 
             return context.Response.WriteAsync(JsonConvert.SerializeObject(new
             {
-                StatusCode = code ?? HttpStatusCode.InternalServerError,
-                Message = message ?? "Internal server error. Please contact the development team."
+                Message = ex.Message ?? "Internal server error. Please contact the development team."
             }));
         }
     }

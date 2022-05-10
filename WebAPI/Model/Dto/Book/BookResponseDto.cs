@@ -11,5 +11,8 @@ namespace Entity.Models
         public long Id { get; set; }
         public string Title { get; set; }
         public int PageCount { get; set; }
+        public bool IsFree { get; set; }
+        public string ImagePath { get; set; }
+        public string Description { get; set; }
     }
 }

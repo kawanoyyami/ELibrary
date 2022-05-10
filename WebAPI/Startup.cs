@@ -78,6 +78,7 @@ namespace WebAPI
 
             if (env.IsDevelopment())
             {
+                app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
                 //app.UseErrorHandling();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
@@ -88,7 +89,7 @@ namespace WebAPI
                 });
             }
             app.UseErrorHandling();
-
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
 
             app.UseRouting();

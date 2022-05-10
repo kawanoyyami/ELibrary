@@ -9,7 +9,7 @@ namespace Common.Exceptions
 {
     public class ValueOutOfRangeException : ApiException
     {
-        public ValueOutOfRangeException(string message) : base(HttpStatusCode.BadRequest, message)
+        public ValueOutOfRangeException(string message) : base(message)
         {
 
         }

@@ -12,6 +12,7 @@ namespace Entity.Repository
 {
     public interface IRepository<TEntity> where TEntity : IEntityBase
     {
+
         Task<TEntity> GetByIdAsync(long id);
         Task<TEntity> GetByIdWithIncludeAsync(long id, params Expression<Func<TEntity, object>>[] includes);
         Task<List<TEntity>> ListAsync();
@@ -20,7 +21,7 @@ namespace Entity.Repository
         Task Delete(long id);
         IQueryable<TEntity> Read();
         Task<int> SaveChangesAsync();
-        Task<PaginatedResult<TDto>> GetPagedData<TDto>(PagedRequest pagedRequest) where TDto : class;
+        Task<PaginatedResult<TDto>> GetPagedData<TEntity, TDto>(PagedRequest pagedRequest) where TEntity : EntityBase where TDto : class;
         Task<User> GetByUserName(string username);
     }
 }

@@ -1,5 +1,4 @@
-﻿using Common.Models.PagedRequestModels.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +10,5 @@ namespace Common.Models.PagedRequestModels
     {
         public string Path { get; set; }
         public string Value { get; set; }
-        public FilterOperators Operator { get; set; }
     }
 }

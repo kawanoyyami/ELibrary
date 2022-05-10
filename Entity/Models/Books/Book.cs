@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,10 @@ namespace Entity.Models
     {
         public string Title { get; set; }
         public int PageCount { get; set; }
-        public virtual ICollection<Author> Authors { get; set; }
-        public bool IsFree { get => true; }
+        public ICollection<Author> Authors { get; set; }
+        public bool IsFree { get; set; }
+        public string ImagePath { get; set; }
+        public string Description { get; set; }
+
     }
 }

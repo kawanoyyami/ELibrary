@@ -1,4 +1,5 @@
-﻿using Entity.Models;
+﻿using Common.Models.PagedRequestModels;
+using Entity.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -17,6 +18,12 @@ namespace WebAPI.Controllers
         public BookController(IBookSevice bookSevice)
         {
             _bookSevice = bookSevice;
+        }
+        [HttpPost("paginated-search")]
+        public async Task<PaginatedResult<BookResponseDto>> GetPagedBooks(PagedRequest pagedRequest)
+        {
+            var pagedBooksDto = await _bookSevice.GetPagedBooks(pagedRequest);
+            return pagedBooksDto;
         }
 
         [HttpGet("{id}")]

@@ -29,6 +29,7 @@ namespace WebAPI.Controllers
             return Ok();
         }
         [HttpGet("{id}/Books")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetBookAuthor(long id)
         {
             var result = await _authorSevice.GetAuthorWithBooks(id);

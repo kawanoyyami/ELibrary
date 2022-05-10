@@ -55,9 +55,7 @@ namespace WebAPI.Services
             var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Sid, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Email, user.Email)
+                    new Claim(ClaimTypes.Name, user.UserName)
                 };
 
             roles.ToList().ForEach(r => claims.Add(new Claim(ClaimTypes.Role, r)));
@@ -67,7 +65,7 @@ namespace WebAPI.Services
                 authParams.Issuer,
                 authParams.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddSeconds(authParams.TokenLifeTime),
+                expires: DateTime.Now.AddSeconds(authParams.TokenLifeTimeInSeconds),
                 signingCredentials: credentials
             );
 
@@ -81,11 +79,16 @@ namespace WebAPI.Services
 
         public async Task<UserResponseDto> RegisterUser(RegisterUserQueryDto registerUserQueryDto)
         {
-            var checkPass = await _signInManager.PasswordSignInAsync(registerUserQueryDto.UserName, registerUserQueryDto.Password, false, false);
-            if (!checkPass.Succeeded)
+            var check = await _userRepository.GetByUserName(username: registerUserQueryDto.UserName);
+            if(check != null)
             {
                 throw new NotFoundException("User with same Username already exist!");
             }
+            //var checkPass = await _signInManager.PasswordSignInAsync(registerUserQueryDto.UserName, registerUserQueryDto.Password, false, false);
+            //if (!checkPass.Succeeded)
+            //{
+            //    throw new NotFoundException("User with same Username already exist!");
+            //}
 
             var user = _mapper.Map<User>(registerUserQueryDto);
             //@TO-DO Refactor this

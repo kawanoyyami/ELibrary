@@ -10,11 +10,11 @@ namespace Common.Exceptions
     [Serializable]
     public class ApiException : Exception
     {
-        public HttpStatusCode Code { get; }
+        public virtual HttpStatusCode Code { get; } = HttpStatusCode.BadRequest;
 
-        public ApiException(HttpStatusCode code, string message) : base(message)
+        public ApiException( string message) : base(message)
         {
-            Code = code;
+            
         }
     }
 }

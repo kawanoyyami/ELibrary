@@ -8,7 +8,7 @@ namespace WebAPI.Model.Auth
         public string Issuer { get; set; }
         public string Audience { get; set; }
         public string Secret { get; set; }
-        public int TokenLifeTime { get; set; }
+        public int TokenLifeTimeInSeconds { get; set; }
         public SymmetricSecurityKey GetSymmetricSecurityKey() => new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Secret));
     }
 }

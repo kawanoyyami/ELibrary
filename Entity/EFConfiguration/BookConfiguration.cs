@@ -20,7 +20,8 @@ namespace Entity.EFConfiguration
             builder.Property(b => b.RowVersion)
                 .IsRowVersion();
 
-            builder.Ignore(b => b.IsFree);
+            builder.Property(b => b.IsFree)
+                .HasDefaultValue(true);
         }
     }
 }

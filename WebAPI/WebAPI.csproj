@@ -29,4 +29,9 @@
     <ProjectReference Include="..\Entity\Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logs\" />
+    <Folder Include="wwwroot\BookImages\" />
+  </ItemGroup>
+
 </Project>

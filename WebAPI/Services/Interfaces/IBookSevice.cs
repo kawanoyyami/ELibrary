@@ -1,4 +1,5 @@
-﻿using Entity.Models;
+﻿using Common.Models.PagedRequestModels;
+using Entity.Models;
 using WebAPI.Model.Dto.Book;
 
 namespace WebAPI.Services.Interfaces
@@ -10,6 +11,7 @@ namespace WebAPI.Services.Interfaces
         Task<BookWithAuthorsDto> GetBookWithAuthors(long id);
         Task CreateBook(BookCreateDto bookCreate);
         Task<BookUpdateDto> UpdateBook(BookUpdateDto bookUpdate);
+        Task<PaginatedResult<BookResponseDto>> GetPagedBooks(PagedRequest pagedRequest);
 
     }
 }

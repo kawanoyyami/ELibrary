@@ -77,6 +77,9 @@ namespace Entity.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     PageCount = table.Column<int>(type: "int", nullable: false),
+                    IsFree = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>

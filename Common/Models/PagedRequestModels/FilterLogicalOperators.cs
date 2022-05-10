@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Models.PagedRequestModels.Enums
+namespace Common.Models.PagedRequestModels
 {
     public enum FilterLogicalOperators
     {
-        And = 0,
-        Or = 1,
+        And,
+        Or,
     }
 }

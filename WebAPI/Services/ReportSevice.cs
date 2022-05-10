@@ -13,11 +13,13 @@ namespace WebAPI.Services
     {
         private IMapper _mapper { get; }
         private IRepository<Report> _reportRepository { get; }
+        private readonly IRepository<Project> _projectRepository;
 
-        public ReportSevice(IMapper mapper, IRepository<Report> reportRepository)
+        public ReportSevice(IMapper mapper, IRepository<Report> reportRepository, IRepository<Project> projectRepository)
         {
             _mapper = mapper;
             _reportRepository = reportRepository;
+            _projectRepository = projectRepository;
         }
 
         public async Task<ReportResponseDto> GetReport(long id)
@@ -35,9 +37,10 @@ namespace WebAPI.Services
         {
             var res = await _reportRepository.GetByIdAsync(reportUpdateDto.Id);
 
-            if (res is null)
-                throw new NotFoundException("Report doesn't exist!");
+            if (res == null)
+                throw new ValueOutOfRangeException($"Report could not be updated because report with id: {reportUpdateDto.Id} not exist in database!");
 
+            //@TODO HUINEA EBANAIA
             res.Name = reportUpdateDto.Name;
             res.Link = reportUpdateDto.Link;
             res.CreatedDate = reportUpdateDto.CreatedDate;
@@ -51,8 +54,8 @@ namespace WebAPI.Services
         {
             var report = await _reportRepository.GetByIdAsync(id);
 
-            if(report is null)
-                throw new NotFoundException("Report doesn't exist!");
+            if (report == null)
+                throw new NotFoundException($"Report could not be deleted because report with id: {id} not exist in database!");
 
             await _reportRepository.Delete(id);
         }
@@ -65,6 +68,8 @@ namespace WebAPI.Services
         public async Task<ReportWithProjectDto> GetReportWithProjects(long id)
         {
             var project = await _reportRepository.GetByIdWithIncludeAsync(id, r => r.Project);
+
+            var x = await _projectRepository.GetByIdWithIncludeAsync(id, r => r.User);
 
             if (project is null)
                 throw new NotFoundException("Report doesn't exist!");

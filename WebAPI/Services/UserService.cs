@@ -39,8 +39,9 @@ namespace WebAPI.Services
             var res = await _userManager.FindByIdAsync(userUpdateDto.Id.ToString());
 
             if (res == null)
-                throw new NotFoundException("No such User Exist");
+                throw new ValueOutOfRangeException($"User could not be updated because user with id: {userUpdateDto.Id} not exist in database!");
 
+            //@TODO REMVOE HUINEA EBANAIA
             res.FullName = userUpdateDto.FullName;
             res.UserName = userUpdateDto.UserName;
             res.Email = userUpdateDto.Email;
@@ -57,7 +58,7 @@ namespace WebAPI.Services
             var res = await _userRepository.GetByIdAsync(id);
 
             if (res == null)
-                throw new NotFoundException("No such User Exist");
+                throw new ValueOutOfRangeException($"User could not be deleted because user with id: {id} not exist in database!");
 
             await _userRepository.Delete(id);
         }

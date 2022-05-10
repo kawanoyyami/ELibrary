@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Common.Models.PagedRequestModels;
-using Common.Models.PagedRequestModels.Enums;
 using Entity.Models;
 using Entity.Models.Auth;
 using Microsoft.EntityFrameworkCore;
@@ -13,19 +12,19 @@ namespace Entity.Extensions
 {
     public static class QueryableExtensions
     {
-        public static async Task<PaginatedResult<TDto>> CreatePaginatedResultAsync<TEntity, TDto>(this IQueryable<TEntity> query, PagedRequest pagedRequest, IMapper mapper)
-           where TEntity : IEntityBase
-           where TDto : class
+        public async static Task<PaginatedResult<TDto>> CreatePaginatedResultAsync<TEntity, TDto>(this IQueryable<TEntity> query, PagedRequest pagedRequest, IMapper mapper)
+             where TEntity : EntityBase
+             where TDto : class
         {
             query = query.ApplyFilters(pagedRequest);
 
             var total = await query.CountAsync();
 
-            query = query.Sort(pagedRequest);
-
             query = query.Paginate(pagedRequest);
 
             var projectionResult = query.ProjectTo<TDto>(mapper.ConfigurationProvider);
+
+            projectionResult = projectionResult.Sort(pagedRequest);
 
             var listResult = await projectionResult.ToListAsync();
 
@@ -40,7 +39,7 @@ namespace Entity.Extensions
 
         private static IQueryable<T> Paginate<T>(this IQueryable<T> query, PagedRequest pagedRequest)
         {
-            var entities = query.Skip((pagedRequest.PageIndex - 1) * pagedRequest.PageSize).Take(pagedRequest.PageSize);
+            var entities = query.Skip(pagedRequest.PageIndex * pagedRequest.PageSize).Take(pagedRequest.PageSize);
             return entities;
         }
 
@@ -61,37 +60,9 @@ namespace Entity.Extensions
             {
                 if (i > 0)
                 {
-                    predicate.Append($" {requestFilters.LogicalOperators} ");
+                    predicate.Append($" {requestFilters.LogicalOperator} ");
                 }
-
-                switch (requestFilters.Filters[i].Operator)
-                {
-                    case FilterOperators.Contains:
-                        {
-                            predicate.Append(requestFilters.Filters[i].Path + $".ToLower().{nameof(string.Contains)}(@{i}.ToLower())");
-                            break;
-                        }
-                    case FilterOperators.Equals:
-                        {
-                            predicate.Append(requestFilters.Filters[i].Path + $".{nameof(string.Equals)}(@{i})");
-                            break;
-                        }
-                    case FilterOperators.EqualsNumber:
-                        {
-                            predicate.Append(requestFilters.Filters[i].Path + $" = (@{i})");
-                            break;
-                        }
-                    case FilterOperators.NotEqualsNumber:
-                        {
-                            predicate.Append(requestFilters.Filters[i].Path + $" != (@{i})");
-                            break;
-                        }
-                    case FilterOperators.Custom:
-                        {
-                            predicate.Append(requestFilters.Filters[i].Path);
-                            break;
-                        }
-                }
+                predicate.Append(requestFilters.Filters[i].Path + $".{nameof(string.Contains)}(@{i})");
             }
 
             if (requestFilters.Filters.Any())

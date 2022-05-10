@@ -33,8 +33,8 @@ namespace WebAPI.Services
         {
             var res = await _projectRepository.GetByIdAsync(id);
 
-            if (res is null)
-                throw new NotFoundException("Project doesn't exist!");
+            if (res == null)
+                throw new ValueOutOfRangeException($"Project could not be deleted because project with id: {id} not exist in database!");
 
             await _projectRepository.Delete(id);
         }
@@ -43,10 +43,8 @@ namespace WebAPI.Services
         {
             var res = await _projectRepository.GetByIdAsync(projectUpdate.Id);
 
-            //await _projectRepository.UpdateProject(new Project { Id = projectUpdate.Id, Name = projectUpdate.Name });
-            //@TO-DO refactor this 
-            if (res is null)
-                throw new NotFoundException("Project doesn't exist!");
+            if (res == null)
+                throw new ValueOutOfRangeException($"Project could not be updated because project with id: {projectUpdate.Id} not exist in database!");
 
             res.Id = projectUpdate.Id;
             res.Name = projectUpdate.Name;
@@ -62,12 +60,12 @@ namespace WebAPI.Services
 
         public async Task<ProjectWithReportsDto> GetProjectWithReports(long id)
         {
-            var report = await _projectRepository.GetByIdWithIncludeAsync(id, b => b.Reports);
+            var project = await _projectRepository.GetByIdWithIncludeAsync(id, b => b.Reports);
 
-            if (report is null)
+            if (project is null)
                 throw new NotFoundException("Project doesn't exist!");
 
-            var output = _mapper.Map<ProjectWithReportsDto>(report);
+            var output = _mapper.Map<ProjectWithReportsDto>(project);
             return output;
         }
     }

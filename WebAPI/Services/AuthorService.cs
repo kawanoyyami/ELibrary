@@ -30,7 +30,7 @@ namespace WebAPI.Services
             var author = await _authorRepository.GetByIdAsync(id);
 
             if (author == null)
-                throw new NotFoundException("Author doesn't exist!");
+                throw new NotFoundException($"Author could not be deleted because author with id: {id} not exist in database!");
 
             await _authorRepository.Delete(id);
         }
