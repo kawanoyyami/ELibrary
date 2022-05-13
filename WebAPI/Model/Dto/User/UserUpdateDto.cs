@@ -19,14 +19,5 @@ namespace WebAPI.Model.Dto.User
         [EmailAddress]
         [MaxLength(100)]
         public string Email { get; set; }
-
-        [Required]
-        [Phone]
-        [MaxLength(15)]
-        public string PhoneNumber { get; set; }
-
-        [DataType(DataType.Date)]
-        [Required]
-        public DateTime DOB { get; set; }
     }
 }

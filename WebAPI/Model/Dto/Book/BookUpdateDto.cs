@@ -11,7 +11,14 @@ namespace WebAPI.Model.Dto.Book
         [MaxLength(150)]
         public string Title { get; set; }
 
-        [Required]
         public int PageCount { get; set; }
+
+        public bool IsFree { get; set; }
+
+        public string ImagePath { get; set; }
+
+        public string Description { get; set; }
+
+        public string AmazonLink { get; set; }
     }
 }

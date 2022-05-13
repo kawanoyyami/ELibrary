@@ -22,6 +22,9 @@ namespace Entity.EFConfiguration
 
             builder.Property(b => b.IsFree)
                 .HasDefaultValue(true);
+
+            builder.Property(b => b.AmazonLink)
+                .HasDefaultValue("https://www.google.com/");
         }
     }
 }

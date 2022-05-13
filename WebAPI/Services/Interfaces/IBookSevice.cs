@@ -12,6 +12,6 @@ namespace WebAPI.Services.Interfaces
         Task CreateBook(BookCreateDto bookCreate);
         Task<BookUpdateDto> UpdateBook(BookUpdateDto bookUpdate);
         Task<PaginatedResult<BookResponseDto>> GetPagedBooks(PagedRequest pagedRequest);
-
+        Task<List<BookResponseDto>> GetAllBoks();
     }
 }

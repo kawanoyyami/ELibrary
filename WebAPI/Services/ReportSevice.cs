@@ -40,10 +40,7 @@ namespace WebAPI.Services
             if (res == null)
                 throw new ValueOutOfRangeException($"Report could not be updated because report with id: {reportUpdateDto.Id} not exist in database!");
 
-            //@TODO HUINEA EBANAIA
-            res.Name = reportUpdateDto.Name;
-            res.Link = reportUpdateDto.Link;
-            res.CreatedDate = reportUpdateDto.CreatedDate;
+            _mapper.Map<ReportUpdateDto>(res);
 
             await _reportRepository.Update(res);
 
@@ -68,8 +65,6 @@ namespace WebAPI.Services
         public async Task<ReportWithProjectDto> GetReportWithProjects(long id)
         {
             var project = await _reportRepository.GetByIdWithIncludeAsync(id, r => r.Project);
-
-            var x = await _projectRepository.GetByIdWithIncludeAsync(id, r => r.User);
 
             if (project is null)
                 throw new NotFoundException("Report doesn't exist!");

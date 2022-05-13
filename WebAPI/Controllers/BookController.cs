@@ -27,12 +27,20 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetBook(long id)
+        public async Task<IActionResult> GetBookById(long id)
         {
             var result = await _bookSevice.GetBook(id);
 
             return Ok(result);
         }
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllBooks()
+        {
+            var result = await _bookSevice.GetAllBoks();
+
+            return Ok(result);
+        }
+
         [HttpPost("add")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateBook(BookCreateDto bookCreateDto)

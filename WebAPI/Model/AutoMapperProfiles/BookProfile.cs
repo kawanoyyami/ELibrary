@@ -9,6 +9,8 @@ namespace WebAPI.Model
         public BookProfile()
         {
             CreateMap<BookCreateDto, Book>();
+            CreateMap<BookUpdateDto, Book>();
+            CreateMap<Book, BookUpdateDto>();
             CreateMap<Book, BookResponseDto>();
             CreateMap<BookUpdateDto, Book>();
             CreateMap<Book, BookWithAuthorsDto>()

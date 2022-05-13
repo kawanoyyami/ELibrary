@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Entity.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialcrete : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -80,6 +80,7 @@ namespace Entity.Migrations
                     IsFree = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AmazonLink = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "https://www.google.com/"),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>

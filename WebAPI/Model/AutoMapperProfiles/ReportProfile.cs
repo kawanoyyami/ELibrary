@@ -9,6 +9,7 @@ namespace WebAPI.Model.Mapping
         public ReportProfile()
         {
             CreateMap<ReportUpdateDto, Report>();
+            CreateMap<Report, ReportUpdateDto>();
             CreateMap<Report, ReportResponseDto>();
             CreateMap<ReportCreateDto, Report>();
             CreateMap<Report, ReportWithProjectDto>()

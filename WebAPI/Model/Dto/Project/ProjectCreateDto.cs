@@ -2,7 +2,7 @@
 {
     public class ProjectCreateDto
     {
-        //public long UserId { get; set; }
-        public string name { get; set; }
+        public long UserId { get; set; }
+        public string Name { get; set; }
     }
 }

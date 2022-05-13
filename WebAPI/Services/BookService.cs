@@ -60,8 +60,8 @@ namespace WebAPI.Services
             if (res == null)
                 throw new ValueOutOfRangeException($"Book could not be updated because book with id: {bookUpdate.Id} not exist in database!");
 
-            res.Title = bookUpdate.Title;
-            res.PageCount = bookUpdate.PageCount;
+            _mapper.Map(bookUpdate,res);
+
             await _bookRepository.Update(res);
             return null;
         }
@@ -70,6 +70,15 @@ namespace WebAPI.Services
         {
             var pagedBooks = await _bookRepository.GetPagedData<Book, BookResponseDto>(pagedRequest);
             return pagedBooks;
+        }
+
+        public async Task<List<BookResponseDto>> GetAllBoks()
+        {
+            var listBooks = await _bookRepository.ListAsync();
+
+            var result = _mapper.Map<List<BookResponseDto>>(listBooks);
+
+            return result;
         }
     }
 }

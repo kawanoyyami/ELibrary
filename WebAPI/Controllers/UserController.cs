@@ -7,7 +7,7 @@ namespace WebAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize(Roles = "admin,FreeUser,PaidUser")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private IUserService _userService { get; }
@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
             _userService = userService;
         }
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize]
         public async Task<IActionResult> GetUser(long id)
         {
             var res = await _userService.GetUser(id);

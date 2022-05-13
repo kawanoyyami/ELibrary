@@ -14,5 +14,6 @@ namespace Entity.Models
         public bool IsFree { get; set; }
         public string ImagePath { get; set; }
         public string Description { get; set; }
+        public string AmazonLink { get; set; }
     }
 }

@@ -52,8 +52,6 @@ namespace Entity.Repository
         }
         public async Task<TEntity> GetByIdAsync(long id) => await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<List<TEntity>> ListAsync() => await _context.Set<TEntity>().ToListAsync();
-
         public IQueryable<TEntity> Read() => _context.Set<TEntity>();
 
         public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
@@ -69,5 +67,7 @@ namespace Entity.Repository
             return await _context.Set<TEntity>().CreatePaginatedResultAsync<TEntity, TDto>(pagedRequest, _mapper);
         }
         public async Task<User> GetByUserName(string username) => await _context.Set<User>().FirstOrDefaultAsync(x => x.UserName == username);
+
+        public async Task<List<TEntity>> ListAsync() => await _context.Set<TEntity>().ToListAsync();
     }
 }

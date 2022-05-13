@@ -36,19 +36,14 @@ namespace WebAPI.Services
 
         public async Task<UserResponseDto> UpdateUser(UserUpdateDto userUpdateDto)
         {
-            var res = await _userManager.FindByIdAsync(userUpdateDto.Id.ToString());
+            var user = await _userManager.FindByIdAsync(userUpdateDto.Id.ToString());
 
-            if (res == null)
+            if (user == null)
                 throw new ValueOutOfRangeException($"User could not be updated because user with id: {userUpdateDto.Id} not exist in database!");
 
-            //@TODO REMVOE HUINEA EBANAIA
-            res.FullName = userUpdateDto.FullName;
-            res.UserName = userUpdateDto.UserName;
-            res.Email = userUpdateDto.Email;
-            res.PhoneNumber = userUpdateDto.PhoneNumber;
-            res.DOB = userUpdateDto.DOB;
+            _mapper.Map<UserUpdateDto>(user);
 
-            await _userRepository.Update(res);
+            await _userRepository.Update(user);
 
             return null;
         }

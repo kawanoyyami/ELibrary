@@ -11,5 +11,6 @@
         public string Phone { get; set; }
 
         public DateTime? DOB { get; set; }
+
     }
 }

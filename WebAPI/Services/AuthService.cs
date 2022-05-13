@@ -55,7 +55,7 @@ namespace WebAPI.Services
             var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.UserName)
+                    new Claim(ClaimTypes.Name, user.UserName),
                 };
 
             roles.ToList().ForEach(r => claims.Add(new Claim(ClaimTypes.Role, r)));
@@ -65,7 +65,7 @@ namespace WebAPI.Services
                 authParams.Issuer,
                 authParams.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddSeconds(authParams.TokenLifeTimeInSeconds),
+                expires: DateTime.Now.AddHours(authParams.TokenLifeTimeInSeconds),
                 signingCredentials: credentials
             );
 
