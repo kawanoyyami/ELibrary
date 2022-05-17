@@ -6,6 +6,7 @@ using WebAPI.Middlewares;
 using MediatR;
 using WebAPI.Extensions;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using Microsoft.Extensions.FileProviders;
 
 namespace WebAPI
 {
@@ -76,9 +77,13 @@ namespace WebAPI
         {
             loggerFactory.AddFile("Logs/App-{Date}.txt");
 
+            app.UseCors(options => options
+                .WithOrigins("http://localhost:3000")
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             if (env.IsDevelopment())
             {
-                app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
                 //app.UseErrorHandling();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
@@ -89,7 +94,13 @@ namespace WebAPI
                 });
             }
             app.UseErrorHandling();
-            app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

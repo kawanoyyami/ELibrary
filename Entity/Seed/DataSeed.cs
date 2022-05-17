@@ -173,7 +173,7 @@ namespace Entity.Seed
                     {
                         Title = "The Lion, the Witch and the Wardrobe",
                         PageCount = 100,
-                        ImagePath = "https://localhost:7001/bookimages/thelion.jpg",
+                        ImagePath = "thelion.jpg",
                         Description = "Lewis, The Lion,the Witch and the Wardrobe, the film tells the story of 4 children who go to live with an old professor during the war. One day, while playing hide and seek, Lucy, the youngest of the children, finds a wardrobe which leads to a magical land called Narnia.",
                         AmazonLink = "https://amzn.com/dp/0064404994",
                     };
@@ -194,7 +194,7 @@ namespace Entity.Seed
                     {
                         Title = "She: A History of Adventure",
                         PageCount = 100,
-                        ImagePath = "https://localhost:7001/bookimages/she.jpg",
+                        ImagePath = "she.jpg",
                         Description = "The story is a first-person narrative which follows the journey of Horace Holly and his ward Leo Vincey to a lost kingdom in the African interior. They encounter a primitive race of natives and a mysterious white queen named Ayesha who reigns as the all-powerful She or She - who - must - be - obeyed.",
                         AmazonLink = "https://amzn.com/dp/1925110133",
                     };
@@ -214,7 +214,7 @@ namespace Entity.Seed
                     {
                         Title = "The Adventures of Pinocchio",
                         PageCount = 100,
-                        ImagePath = "https://localhost:7001/bookimages/pinocchio.jpg",
+                        ImagePath = "pinocchio.jpg",
                         Description = "Lesson Summary. Carlo Collodi′s The Adventures of Pinocchio is a hugely successful children′s fantasy book. Set in Tuscany, Italy during the late 1800s, it tells the story of a marionette puppet who tries his best to be a good son to his father, Geppetto, so that he can be turned into a real boy by the Blue Fairy",
                         AmazonLink = "https://amzn.com/dp/B0084AMSKI",
                     };
@@ -234,7 +234,7 @@ namespace Entity.Seed
                     {
                         Title = "The Da Vinci Code",
                         PageCount = 100,
-                        ImagePath = "https://localhost:7001/bookimages/vincicode.jpg",
+                        ImagePath = "vincicode.jpg",
                         Description = "The Da Vinci Code follows symbologist Robert Langdon and cryptologist Sophie Neveu after a murder in the Louvre Museum in Paris causes them to become involved in a battle between the Priory of Sion and Opus Dei over the possibility of Jesus Christ and Mary Magdalene having had a child together.",
                         AmazonLink = "https://amzn.com/dp/0307474275",
                     };
@@ -254,7 +254,7 @@ namespace Entity.Seed
                     {
                         Title = "Harry Potter and the Chamber of Secrets",
                         PageCount = 100,
-                        ImagePath = "https://localhost:7001/bookimages/secrets.jpg",
+                        ImagePath = "secrets.jpg",
                         Description = "The plot follows Harry's second year at Hogwarts School of Witchcraft and Wizardry, during which a series of messages on the walls of the school's corridors warn that the Chamber of Secrets has been opened and that the heir of Slytherin would kill all pupils who do not come from all-magical families.",
                         AmazonLink = "https://amzn.com/dp/1338716530"
                     };
@@ -264,7 +264,7 @@ namespace Entity.Seed
                     {
                         Title = "Harry Potter and the Prisoner of Azkaban",
                         PageCount = 100,
-                        ImagePath = "https://localhost:7001/bookimages/azkaban.jpg",
+                        ImagePath = "azkaban.jpg",
                         Description = "The book follows Harry Potter, a young wizard, in his third year at Hogwarts School of Witchcraft and Wizardry. Along with friends Ronald Weasley and Hermione Granger, Harry investigates Sirius Black, an escaped prisoner from Azkaban, the wizard prison, believed to be one of Lord Voldemort's old allies.",
                         AmazonLink = "https://amzn.com/dp/B017V4NTFA",
                     };
@@ -275,7 +275,7 @@ namespace Entity.Seed
                     {
                         Title = "Harry Potter and the Goblet of Fire",
                         PageCount = 100,
-                        ImagePath = "https://localhost:7001/bookimages/goblet.jpg",
+                        ImagePath = "goblet.jpg",
                         Description = "Harry Potter finds himself competing in a hazardous tournament between rival schools of magic, but he is distracted by recurring nightmares. Harry Potter finds himself competing in a hazardous tournament between rival schools of magic, but he is distracted by recurring nightmares.",
                         AmazonLink = "https://amzn.com/dp/B017V4NQGM",
                     };
@@ -286,7 +286,7 @@ namespace Entity.Seed
                     {
                         Title = "Harry Potter and the Order of the Phoenix",
                         PageCount = 100,
-                        ImagePath = "https://localhost:7001/bookimages/order.jpg",
+                        ImagePath = "order.jpg",
                         Description = "The Order of the Phoenix was a secret society founded by Albus Dumbledore to oppose Lord Voldemort and his Death Eaters. The original Order was created in the 1970s. It was constructed after Voldemort returned to England from abroad and started his campaign to take over the Ministry of Magic and persecute Muggle-borns.",
                         AmazonLink = "https://amzn.com/dp/B017V4NLJ4",
                     };
@@ -297,7 +297,7 @@ namespace Entity.Seed
                     {
                         Title = "Harry Potter and the Half-Blood Prince",
                         PageCount = 100,
-                        ImagePath = "https://localhost:7001/bookimages/half.jpg",
+                        ImagePath = "half.jpg",
                         Description = "In this book, Harry Potter learns a lot about Lord Voldemort's past, and Harry Potter prepares for the final battle against his nemesis with the help of Headmaster Dumbledore. But in that time, Voldemort returns to power, and makes a plan to destroy Harry.",
                         AmazonLink = "https://amzn.com/dp/B017V4NOEG",
                     };
@@ -308,7 +308,7 @@ namespace Entity.Seed
                     {
                         Title = "Harry Potter and the Deathly Hallows",
                         PageCount = 100,
-                        ImagePath = "https://localhost:7001/bookimages/deathly.jpg",
+                        ImagePath = "deathly.jpg",
                         Description = "The novel chronicles the events directly following Harry Potter and the Half-Blood Prince (2005) and the final confrontation between the wizards Harry Potter and Lord Voldemort. Deathly Hallows shattered sales records upon release, surpassing marks set by previous titles of the Harry Potter series.",
                         AmazonLink = "https://amzn.com/dp/B017WJ5PR4",
                     };

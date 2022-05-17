@@ -11,10 +11,8 @@ namespace WebAPI.Model.Dto.Book
         [Required]
         public int PageCount { get; set; }
 
-        [Required]
         public bool IsFree { get; set; }
 
-        [Required]
         public string ImagePath { get; set; }
 
         [Required]
@@ -22,5 +20,7 @@ namespace WebAPI.Model.Dto.Book
 
         [Required]
         public string AmazonLink { get; set; }
+
+        public IFormFile file { get; set; }
     }
 }

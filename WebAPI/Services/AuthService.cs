@@ -34,7 +34,7 @@ namespace WebAPI.Services
             var checkPass = await _signInManager.PasswordSignInAsync(loginUserQueryDto.UserName, loginUserQueryDto.Password, false, false);
             if (!checkPass.Succeeded)
             {
-                throw new NotFoundException("User with same Username and Password not found!");
+                throw new NotFoundException("No such user exist");
             }
             var user = await _userRepository.GetByUserName(loginUserQueryDto.UserName);
 
@@ -80,7 +80,7 @@ namespace WebAPI.Services
         public async Task<UserResponseDto> RegisterUser(RegisterUserQueryDto registerUserQueryDto)
         {
             var check = await _userRepository.GetByUserName(username: registerUserQueryDto.UserName);
-            if(check != null)
+            if (check != null)
             {
                 throw new NotFoundException("User with same Username already exist!");
             }
@@ -97,6 +97,9 @@ namespace WebAPI.Services
             {
                 throw new ValueOutOfRangeException("Wrong characteristic(password) type!");
             }
+
+            await _userManager.AddToRoleAsync(user, "FreeUser");
+
 
             return _mapper.Map<UserResponseDto>(registerUserQueryDto);
         }

@@ -43,7 +43,8 @@ namespace WebAPI.Controllers
 
         [HttpPost("add")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> CreateBook(BookCreateDto bookCreateDto)
+        [DisableRequestSizeLimit]
+        public async Task<IActionResult> CreateBook([FromForm] BookCreateDto bookCreateDto)
         {
             await _bookSevice.CreateBook(bookCreateDto);
             return Ok();
@@ -58,7 +59,7 @@ namespace WebAPI.Controllers
         }
         [HttpPut]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> UpdateBook(BookUpdateDto bookModel)
+        public async Task<IActionResult> UpdateBook([FromForm] BookUpdateDto bookModel)
         {
             if (ModelState.IsValid)
             {

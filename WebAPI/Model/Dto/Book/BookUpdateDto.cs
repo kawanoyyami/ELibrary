@@ -20,5 +20,7 @@ namespace WebAPI.Model.Dto.Book
         public string Description { get; set; }
 
         public string AmazonLink { get; set; }
+
+        public IFormFile file { get; set; }
     }
 }

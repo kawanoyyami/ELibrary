@@ -7,6 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Background\background.jpg" />
+    <Content Include="Resources\BookImages\azkaban.jpg" />
+    <Content Include="Resources\BookImages\deathly.jpg" />
+    <Content Include="Resources\BookImages\goblet.jpg" />
+    <Content Include="Resources\BookImages\half.jpg" />
+    <Content Include="Resources\BookImages\order.jpg" />
+    <Content Include="Resources\BookImages\pinocchio.jpg" />
+    <Content Include="Resources\BookImages\secrets.jpg" />
+    <Content Include="Resources\BookImages\she.jpg" />
+    <Content Include="Resources\BookImages\thelion.jpg" />
+    <Content Include="Resources\BookImages\vincicode.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="MediatR" Version="10.0.1" />
@@ -31,7 +52,6 @@
 
   <ItemGroup>
     <Folder Include="Logs\" />
-    <Folder Include="wwwroot\BookImages\" />
   </ItemGroup>
 
 </Project>
