@@ -19,6 +19,7 @@ namespace WebAPI.Extensions
 
             //Service
             services.AddScoped<IBookSevice, BookService>();
+            services.AddScoped<IPaymentService,PaymentService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthorSevice, AuthorService>();

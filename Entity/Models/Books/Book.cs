@@ -23,5 +23,7 @@ namespace Entity.Models
         public string Description { get; set; }
 
         public string AmazonLink { get; set; }
+
+        public string BookName { get; set; }
     }
 }

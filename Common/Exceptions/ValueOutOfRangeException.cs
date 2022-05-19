@@ -9,6 +9,7 @@ namespace Common.Exceptions
 {
     public class ValueOutOfRangeException : ApiException
     {
+        public override HttpStatusCode Code => HttpStatusCode.RequestedRangeNotSatisfiable;
         public ValueOutOfRangeException(string message) : base(message)
         {
 

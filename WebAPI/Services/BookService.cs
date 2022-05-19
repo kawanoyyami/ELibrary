@@ -24,11 +24,13 @@ namespace WebAPI.Services
             {
                 throw new NotFoundException("There are no photos to upload.");
             }
-            else
-            {
+
+            var bookname = UploadBook(bookCreate.filebook);
+            bookCreate.BookName = bookname.Result.ToString();
+
             var imageName = UploadPicture(bookCreate.file);
             bookCreate.ImagePath = imageName.Result.ToString();
-            }
+
 
             var book = _mapper.Map<Book>(bookCreate);
             await _bookRepository.AddAsync(book);
@@ -72,11 +74,10 @@ namespace WebAPI.Services
 
             if (bookUpdate.file == null)
                 throw new NotFoundException("There are no photos to upload.");
-            
 
-                var imageName = UploadPicture(bookUpdate.file);
-                bookUpdate.ImagePath = imageName.Result.ToString();
-            
+
+            var imageName = UploadPicture(bookUpdate.file);
+            bookUpdate.ImagePath = imageName.Result.ToString();
             _mapper.Map(bookUpdate, res);
 
             await _bookRepository.Update(res);
@@ -105,6 +106,21 @@ namespace WebAPI.Services
             imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(file.FileName);
 
             var path = Path.Combine(Directory.GetCurrentDirectory() + @"\Resources\BookImages", imageName);
+
+            using var stream = new FileStream(path, FileMode.Create);
+            await file.CopyToAsync(stream);
+
+            return imageName;
+        }
+
+        private async Task<object> UploadBook(IFormFile file)
+        {
+
+            //@TODO refactor this, add validation
+            string imageName = new String(Path.GetFileNameWithoutExtension(file.FileName).Take(10).ToArray()).Replace(' ', '-');
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(file.FileName);
+
+            var path = Path.Combine(Directory.GetCurrentDirectory() + @"\Resources\Bookspdf", imageName);
 
             using var stream = new FileStream(path, FileMode.Create);
             await file.CopyToAsync(stream);

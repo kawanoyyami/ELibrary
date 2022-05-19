@@ -3,10 +3,10 @@ using Entity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using WebAPI.Middlewares;
-using MediatR;
 using WebAPI.Extensions;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.FileProviders;
+using Stripe;
 
 namespace WebAPI
 {
@@ -15,6 +15,7 @@ namespace WebAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            StripeConfiguration.ApiKey = Configuration.GetValue<string>("StripeSettings:PrivateKey");
         }
 
         public IConfiguration Configuration { get; }
@@ -64,7 +65,6 @@ namespace WebAPI
             services.AddRepositories();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddCors();
 
             services.AddAuth(Configuration);
@@ -75,6 +75,9 @@ namespace WebAPI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+
+            Console.WriteLine(StripeConfiguration.ApiKey);
+
             loggerFactory.AddFile("Logs/App-{Date}.txt");
 
             app.UseCors(options => options

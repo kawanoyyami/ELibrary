@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Entity.EFConfiguration;
 using System.Reflection;
 using Entity.Models;
+using Entity.Models.Payment;
 
 namespace Entity
 {
@@ -20,6 +21,7 @@ namespace Entity
         public DbSet<Project> Projects { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {

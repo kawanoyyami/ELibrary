@@ -1,6 +1,5 @@
 ﻿using Common.Models.PagedRequestModels;
 using Entity.Models;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +29,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetBookById(long id)
         {
             var result = await _bookSevice.GetBook(id);
+            Console.WriteLine("o huinea");
 
             return Ok(result);
         }

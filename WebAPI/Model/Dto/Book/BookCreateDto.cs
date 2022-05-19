@@ -14,6 +14,7 @@ namespace WebAPI.Model.Dto.Book
         public bool IsFree { get; set; }
 
         public string ImagePath { get; set; }
+        public string BookName { get; set; }
 
         [Required]
         public string Description { get; set; }
@@ -22,5 +23,7 @@ namespace WebAPI.Model.Dto.Book
         public string AmazonLink { get; set; }
 
         public IFormFile file { get; set; }
+        public IFormFile filebook { get; set; }
+
     }
 }
