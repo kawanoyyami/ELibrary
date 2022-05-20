@@ -14,7 +14,7 @@ namespace Entity.Models.Auth
         public DateTime DOB { get; set; }
         public string? RegisterTimestamp { get; set; }
         public virtual ICollection<Project>? Projects { get; set; }
-        public virtual ICollection<Subscription>? Subscriptions { get; set; }
+        public virtual ICollection<Subscriptionn>? Subscriptions { get; set; }
         
     }
 }

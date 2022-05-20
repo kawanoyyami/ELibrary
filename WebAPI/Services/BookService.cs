@@ -37,6 +37,9 @@ namespace WebAPI.Services
         }
         public async Task<BookResponseDto> GetBook(long id)
         {
+            if(id <= 0)
+                throw new BadRequestException("Id is not valid number!");
+
             var res = await _bookRepository.GetByIdAsync(id);
 
             if (res is null)

@@ -6,5 +6,6 @@ namespace WebAPI.Services.Interfaces
     public interface IPaymentService
     {
         Task<StripeList<Product>> GetListProducts(long limit);
+        Task StripeWebhook(Event stripeEvent);
     }
 }

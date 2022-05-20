@@ -9,7 +9,7 @@ namespace Entity.Models.Payment
     public class Payment : EntityBase
     {
         public long? SubscriptionId { get; set; }
-        public Subscription Subscription { get; set; }
+        public Subscriptionn Subscription { get; set; }
         public long PaymentDetailsId { get; set; }
         public PaymentDetails PaymentDetails { get; set; }
     }

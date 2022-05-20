@@ -36,7 +36,7 @@ namespace Entity.Repository
             _context.Set<TEntity>().Remove(entityToDeleteFromdb);
             await SaveChangesAsync();
         }
-        public async Task<TEntity> GetByIdWithIncludeAsync(long id, params Expression<Func<TEntity, object>>[] includes)
+        public async Task<TEntity> GetByIdWithIncludeAsync(long id, Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> entities = _context.Set<TEntity>();
 
@@ -48,9 +48,38 @@ namespace Entity.Repository
                 }
             }
 
-            return await entities.FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
+            var entity = await entities.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (entity == null)
+            {
+                throw new NotFoundException($"Entityt of type: {typeof(TEntity)} was not found with id: {id}!");
+            }
+
+            return entity;
+
+            //TODO refactor wtih notes 
+            //try
+            //{
+            //   return await entities.FirstOrDefaultAsync(x => x.Id == id);
+
+            //}
+            //catch (ArgumentNullException EX)
+            //{
+
+            //    throw new NotFoundException($"Entityt of type: {typeof(TEntity)} was not found with id: {id}!", EX);
+            //}
         }
-        public async Task<TEntity> GetByIdAsync(long id) => await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<TEntity> GetByIdAsync(long id)
+        {
+            var entity = await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (entity == null)
+            {
+                throw new NotFoundException($"Entityt of type: {typeof(TEntity)} was not found with id: {id}!");
+            }
+
+            return entity;
+        }
 
         public IQueryable<TEntity> Read() => _context.Set<TEntity>();
 
@@ -66,8 +95,29 @@ namespace Entity.Repository
         {
             return await _context.Set<TEntity>().CreatePaginatedResultAsync<TEntity, TDto>(pagedRequest, _mapper);
         }
-        public async Task<User> GetByUserName(string username) => await _context.Set<User>().FirstOrDefaultAsync(x => x.UserName == username);
 
         public async Task<List<TEntity>> ListAsync() => await _context.Set<TEntity>().ToListAsync();
+
+        public async Task<TEntity?> FindEntity(Expression<Func<TEntity, bool>> findBy, params Expression<Func<TEntity, object>>[] includes)
+        {
+            IQueryable<TEntity> entities = _context.Set<TEntity>();
+
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    entities = entities.Include(include);
+                }
+            }
+
+            var entity = await entities.FirstOrDefaultAsync(findBy).ConfigureAwait(false);
+
+            if (entity == null)
+            {
+                throw new NotFoundException($"Entityt of type: {typeof(TEntity)} was not found");
+            }
+
+            return entity;
+        }
     }
 }

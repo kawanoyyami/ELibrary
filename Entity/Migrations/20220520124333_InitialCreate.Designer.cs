@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entity.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220519132654_InitialCreate")]
+    [Migration("20220520124333_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -382,36 +382,6 @@ namespace Entity.Migrations
                     b.ToTable("PaymentDetails");
                 });
 
-            modelBuilder.Entity("Entity.Models.Plan", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<decimal>("PricePerMonth")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
-
-                    b.Property<long>("SubscriptionId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubscriptionId");
-
-                    b.ToTable("Plans");
-                });
-
             modelBuilder.Entity("Entity.Models.Project", b =>
                 {
                     b.Property<long>("Id")
@@ -476,7 +446,7 @@ namespace Entity.Migrations
                     b.ToTable("Reports");
                 });
 
-            modelBuilder.Entity("Entity.Models.Subscription", b =>
+            modelBuilder.Entity("Entity.Models.Subscriptionn", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -484,18 +454,13 @@ namespace Entity.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<long>("PlanId")
-                        .HasColumnType("bigint");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
-
-                    b.Property<DateTime>("SubscriptionEndTimestamp")
+                    b.Property<DateTime>("EndDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("SubscriptionStartTimestamp")
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<DateTime>("StartDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("UserId")
@@ -584,22 +549,11 @@ namespace Entity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Models.Subscription", "Subscription")
+                    b.HasOne("Entity.Models.Subscriptionn", "Subscription")
                         .WithMany()
                         .HasForeignKey("SubscriptionId");
 
                     b.Navigation("PaymentDetails");
-
-                    b.Navigation("Subscription");
-                });
-
-            modelBuilder.Entity("Entity.Models.Plan", b =>
-                {
-                    b.HasOne("Entity.Models.Subscription", "Subscription")
-                        .WithMany("Plans")
-                        .HasForeignKey("SubscriptionId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
 
                     b.Navigation("Subscription");
                 });
@@ -626,12 +580,12 @@ namespace Entity.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("Entity.Models.Subscription", b =>
+            modelBuilder.Entity("Entity.Models.Subscriptionn", b =>
                 {
                     b.HasOne("Entity.Models.Auth.User", "User")
                         .WithMany("Subscriptions")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -647,11 +601,6 @@ namespace Entity.Migrations
             modelBuilder.Entity("Entity.Models.Project", b =>
                 {
                     b.Navigation("Reports");
-                });
-
-            modelBuilder.Entity("Entity.Models.Subscription", b =>
-                {
-                    b.Navigation("Plans");
                 });
 #pragma warning restore 612, 618
         }

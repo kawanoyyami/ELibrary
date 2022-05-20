@@ -36,7 +36,7 @@ namespace WebAPI.Services
             {
                 throw new NotFoundException("No such user exist");
             }
-            var user = await _userRepository.GetByUserName(loginUserQueryDto.UserName);
+            var user = await _userRepository.FindEntity(x => x.UserName == loginUserQueryDto.UserName);
 
             var token = await GenerateToken(user);
 
@@ -79,7 +79,7 @@ namespace WebAPI.Services
 
         public async Task<UserResponseDto> RegisterUser(RegisterUserQueryDto registerUserQueryDto)
         {
-            var check = await _userRepository.GetByUserName(username: registerUserQueryDto.UserName);
+            var check = await _userRepository.FindEntity(x => x.UserName == registerUserQueryDto.UserName);
             if (check != null)
             {
                 throw new NotFoundException("User with same Username already exist!");

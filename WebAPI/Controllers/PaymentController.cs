@@ -1,6 +1,7 @@
 ﻿using Common.StripeErrorModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Stripe;
 using Stripe.Checkout;
@@ -14,9 +15,11 @@ namespace WebAPI.Controllers
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentService _paymentService;
-        public PaymentController(IPaymentService paymentService)
+        private readonly StripeSettings _stripeSettings;
+        public PaymentController(IPaymentService paymentService, IOptions<StripeSettings> stripeSettings)
         {
             _paymentService = paymentService;
+            _stripeSettings = stripeSettings.Value;
         }
 
         [HttpGet("products/{NumberOfProducts}")]
@@ -72,6 +75,21 @@ namespace WebAPI.Controllers
             }
 
 
+        }
+        [AllowAnonymous]
+        [HttpPost("webhook")]
+        public async Task<IActionResult> WebHook()
+        {
+            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            var stripeEvent = EventUtility.ConstructEvent(
+                json,
+                Request.Headers["Stripe-Signature"],
+                _stripeSettings.WHSecret
+            );
+
+            await _paymentService.StripeWebhook(stripeEvent);
+
+            return Ok();
         }
     }
 }

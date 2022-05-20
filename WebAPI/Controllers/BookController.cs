@@ -29,7 +29,6 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetBookById(long id)
         {
             var result = await _bookSevice.GetBook(id);
-            Console.WriteLine("o huinea");
 
             return Ok(result);
         }

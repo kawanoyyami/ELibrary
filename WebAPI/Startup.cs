@@ -7,6 +7,7 @@ using WebAPI.Extensions;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.FileProviders;
 using Stripe;
+using WebAPI.Model.Dto.Payment;
 
 namespace WebAPI
 {
@@ -22,6 +23,8 @@ namespace WebAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<StripeSettings>(Configuration.GetSection("StripeSettings"));
+
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
 

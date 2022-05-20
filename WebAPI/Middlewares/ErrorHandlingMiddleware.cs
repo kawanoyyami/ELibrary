@@ -1,5 +1,6 @@
 ﻿using Common.Exceptions;
 using Newtonsoft.Json;
+using Stripe;
 using System.Net;
 
 namespace WebAPI.Middlewares
@@ -34,6 +35,8 @@ namespace WebAPI.Middlewares
 
             if (ex is ApiException apiEx)
                 context.Response.StatusCode = (int)apiEx.Code;
+            else if (ex is StripeException)
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             else
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError; 
 

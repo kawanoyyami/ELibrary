@@ -15,6 +15,7 @@ namespace Entity.Repository
 
         Task<TEntity> GetByIdAsync(long id);
         Task<TEntity> GetByIdWithIncludeAsync(long id, params Expression<Func<TEntity, object>>[] includes);
+        Task<TEntity?> FindEntity(Expression<Func<TEntity, bool>> findBy, params Expression<Func<TEntity, object>>[] includes);
         Task<List<TEntity>> ListAsync();
         Task AddAsync(TEntity entity);
         Task Update(TEntity entity);
@@ -22,6 +23,5 @@ namespace Entity.Repository
         IQueryable<TEntity> Read();
         Task<int> SaveChangesAsync();
         Task<PaginatedResult<TDto>> GetPagedData<TEntity, TDto>(PagedRequest pagedRequest) where TEntity : EntityBase where TDto : class;
-        Task<User> GetByUserName(string username);
     }
 }

@@ -11,13 +11,11 @@ namespace WebAPI.Services
     public class AuthorService : IAuthorSevice
     {
         private readonly IRepository<Author> _authorRepository;
-        private readonly IRepository<Book> _bookRepository;
         private IMapper _mapper { get; }
-        public AuthorService(IRepository<Author> authorRepository, IRepository<Book> genericRepository, IMapper mapper)
+        public AuthorService(IRepository<Author> authorRepository, IMapper mapper)
         {
             _authorRepository = authorRepository;
             _mapper = mapper;
-            _bookRepository = genericRepository;
         }
         public async Task CreateAuthor(AuthorCreateDto bookCreate)
         {
