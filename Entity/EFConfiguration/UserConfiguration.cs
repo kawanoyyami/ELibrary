@@ -1,4 +1,4 @@
-﻿using Entity.Models.Auth;
+﻿using Domain.Models.Auth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.EFConfiguration
+namespace DataAccess.EFConfiguration
 {
     internal class UserConfiguration : IEntityTypeConfiguration<User>
     {
@@ -19,7 +19,7 @@ namespace Entity.EFConfiguration
 
             builder.Property(p => p.Email)
                 .IsRequired()
-                .HasMaxLength(320);         
+                .HasMaxLength(320);
         }
     }
 }

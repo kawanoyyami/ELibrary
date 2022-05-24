@@ -1,6 +1,5 @@
 ﻿using Common.Models.PagedRequestModels;
-using Entity.Models;
-using Entity.Models.Auth;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +7,14 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.Repository
+namespace DataAccess.Repository.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : IEntityBase
     {
 
         Task<TEntity> GetByIdAsync(long id);
         Task<TEntity> GetByIdWithIncludeAsync(long id, params Expression<Func<TEntity, object>>[] includes);
-        Task<TEntity?> FindEntity(Expression<Func<TEntity, bool>> findBy, params Expression<Func<TEntity, object>>[] includes);
+        Task<TEntity?> FindEntity(Expression<Func<TEntity, bool>> findBy);
         Task<List<TEntity>> ListAsync();
         Task AddAsync(TEntity entity);
         Task Update(TEntity entity);

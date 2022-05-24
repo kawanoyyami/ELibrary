@@ -1,4 +1,4 @@
-﻿using Entity.Models;
+﻿using Domain.Models.Books;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.EFConfiguration
+namespace DataAccess.EFConfiguration
 {
     internal class BookConfiguration : IEntityTypeConfiguration<Book>
     {

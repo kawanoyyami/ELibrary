@@ -1,16 +1,15 @@
-﻿using Common.Models.PagedRequestModels;
-using Entity.Models;
+﻿using BL.Interfaces;
+using Common.Dto.Book;
+using Common.Models.PagedRequestModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Model.Dto.Book;
-using WebAPI.Services.Interfaces;
 
 namespace WebAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize(Roles = "admin,FreeUser,PaidUser")]
+    [Authorize]
     public class BookController : ControllerBase
     {
         private IBookSevice _bookSevice { get; }

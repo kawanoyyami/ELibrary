@@ -1,9 +1,9 @@
-﻿using Entity.Models.Auth;
-using Entity;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using WebAPI.Model.Auth;
+using DataAccess;
+using Domain.Models.Auth;
+using BL.Auth;
 
 namespace WebAPI.Extensions
 {

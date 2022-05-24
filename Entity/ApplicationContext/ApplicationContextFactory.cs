@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Entity
+namespace DataAccess
 {
     internal class ApplicationContextFactory : IDesignTimeDbContextFactory<ApplicationContext>
     {

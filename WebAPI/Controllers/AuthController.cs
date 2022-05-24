@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BL.Interfaces;
+using Common.Dto.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Model.Dto.User;
-using WebAPI.Services.Interfaces;
 
 namespace WebAPI.Controllers
 {
@@ -19,6 +19,15 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Create(RegisterUserQueryDto registerUser)
         {
             var result = await _authSevice.RegisterUser(registerUser);
+            return Ok(result);
+        }
+
+        [HttpGet("refresh-token")]
+        [Authorize]
+        public async Task<IActionResult> RefreshToken()
+        {
+            var result = await _authSevice.RefreshToken(User);
+
             return Ok(result);
         }
 

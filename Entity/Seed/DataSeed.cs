@@ -1,5 +1,7 @@
-﻿using Entity.Models;
-using Entity.Models.Auth;
+﻿using DataAccess;
+using Domain.Models.Auth;
+using Domain.Models.Books;
+using Domain.Models.Reports;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.Seed
+namespace DataAccess.Seed
 {
     public class DataSeed
     {
@@ -219,7 +221,7 @@ namespace Entity.Seed
                         ImagePath = "pinocchio.jpg",
                         Description = "Lesson Summary. Carlo Collodi′s The Adventures of Pinocchio is a hugely successful children′s fantasy book. Set in Tuscany, Italy during the late 1800s, it tells the story of a marionette puppet who tries his best to be a good son to his father, Geppetto, so that he can be turned into a real boy by the Blue Fairy",
                         AmazonLink = "https://amzn.com/dp/B0084AMSKI",
-                        BookName= "pinocchio.pdf",
+                        BookName = "pinocchio.pdf",
                     };
                     await context.Books.AddAsync(book);
 
@@ -240,7 +242,7 @@ namespace Entity.Seed
                         ImagePath = "vincicode.jpg",
                         Description = "The Da Vinci Code follows symbologist Robert Langdon and cryptologist Sophie Neveu after a murder in the Louvre Museum in Paris causes them to become involved in a battle between the Priory of Sion and Opus Dei over the possibility of Jesus Christ and Mary Magdalene having had a child together.",
                         AmazonLink = "https://amzn.com/dp/0307474275",
-                        BookName= "The-Da-Vinci-Code.pdf",
+                        BookName = "The-Da-Vinci-Code.pdf",
                     };
                     await context.Books.AddAsync(book);
 
@@ -261,7 +263,7 @@ namespace Entity.Seed
                         ImagePath = "secrets.jpg",
                         Description = "The plot follows Harry's second year at Hogwarts School of Witchcraft and Wizardry, during which a series of messages on the walls of the school's corridors warn that the Chamber of Secrets has been opened and that the heir of Slytherin would kill all pupils who do not come from all-magical families.",
                         AmazonLink = "https://amzn.com/dp/1338716530",
-                        BookName= "Secrets.pdf",
+                        BookName = "Secrets.pdf",
 
                     };
                     await context.Books.AddAsync(book);
@@ -273,7 +275,7 @@ namespace Entity.Seed
                         ImagePath = "azkaban.jpg",
                         Description = "The book follows Harry Potter, a young wizard, in his third year at Hogwarts School of Witchcraft and Wizardry. Along with friends Ronald Weasley and Hermione Granger, Harry investigates Sirius Black, an escaped prisoner from Azkaban, the wizard prison, believed to be one of Lord Voldemort's old allies.",
                         AmazonLink = "https://amzn.com/dp/B017V4NTFA",
-                        BookName= "AZKABAN.pdf",
+                        BookName = "AZKABAN.pdf",
                     };
                     await context.Books.AddAsync(book2);
 
@@ -285,7 +287,7 @@ namespace Entity.Seed
                         ImagePath = "goblet.jpg",
                         Description = "Harry Potter finds himself competing in a hazardous tournament between rival schools of magic, but he is distracted by recurring nightmares. Harry Potter finds himself competing in a hazardous tournament between rival schools of magic, but he is distracted by recurring nightmares.",
                         AmazonLink = "https://amzn.com/dp/B017V4NQGM",
-                        BookName= "Harry-Potter-and-the-Goblet-of-Fire.pdf",
+                        BookName = "Harry-Potter-and-the-Goblet-of-Fire.pdf",
                     };
                     await context.Books.AddAsync(book3);
 
@@ -297,7 +299,7 @@ namespace Entity.Seed
                         ImagePath = "order.jpg",
                         Description = "The Order of the Phoenix was a secret society founded by Albus Dumbledore to oppose Lord Voldemort and his Death Eaters. The original Order was created in the 1970s. It was constructed after Voldemort returned to England from abroad and started his campaign to take over the Ministry of Magic and persecute Muggle-borns.",
                         AmazonLink = "https://amzn.com/dp/B017V4NLJ4",
-                        BookName= "harry_potter_and_the_order_of_the_phoenix.pdf",
+                        BookName = "harry_potter_and_the_order_of_the_phoenix.pdf",
                     };
                     await context.Books.AddAsync(book4);
 
@@ -309,7 +311,7 @@ namespace Entity.Seed
                         ImagePath = "half.jpg",
                         Description = "In this book, Harry Potter learns a lot about Lord Voldemort's past, and Harry Potter prepares for the final battle against his nemesis with the help of Headmaster Dumbledore. But in that time, Voldemort returns to power, and makes a plan to destroy Harry.",
                         AmazonLink = "https://amzn.com/dp/B017V4NOEG",
-                        BookName= "Half-Blood-Prince.pdf",
+                        BookName = "Half-Blood-Prince.pdf",
                     };
                     await context.Books.AddAsync(book5);
 
@@ -321,7 +323,7 @@ namespace Entity.Seed
                         ImagePath = "deathly.jpg",
                         Description = "The novel chronicles the events directly following Harry Potter and the Half-Blood Prince (2005) and the final confrontation between the wizards Harry Potter and Lord Voldemort. Deathly Hallows shattered sales records upon release, surpassing marks set by previous titles of the Harry Potter series.",
                         AmazonLink = "https://amzn.com/dp/B017WJ5PR4",
-                        BookName= "Hallows.pdf",
+                        BookName = "Hallows.pdf",
                     };
                     await context.Books.AddAsync(book6);
 

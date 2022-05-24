@@ -1,4 +1,4 @@
-﻿using Entity.Models;
+﻿using Domain.Models.Reports;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.EFConfiguration
+namespace DataAccess.EFConfiguration
 {
     internal class ProjectConfiguration : IEntityTypeConfiguration<Project>
     {
@@ -27,7 +27,7 @@ namespace Entity.EFConfiguration
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.Property(p => p.RowVersion)
-                .IsRowVersion();    
+                .IsRowVersion();
         }
     }
 }

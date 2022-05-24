@@ -1,4 +1,5 @@
-﻿using Entity.Models;
+﻿using BL.Interfaces;
+using Common.Dto.Book;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -9,10 +10,9 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using WebAPI.Controllers;
-using WebAPI.Services.Interfaces;
 using Xunit;
 
-namespace WebAPI_UnitTests
+namespace WebAPI_UnitTests.ControllerTests
 {
     public class BookControllerTests
     {
@@ -22,7 +22,7 @@ namespace WebAPI_UnitTests
         {
             var mockBookService = new Mock<IBookSevice>();
 
-            mockBookService.Setup(x => x.GetBook(It.Is<long>(x => x == 2))).ReturnsAsync( 
+            mockBookService.Setup(x => x.GetBook(It.Is<long>(x => x == 2))).ReturnsAsync(
                 new BookResponseDto
                 {
                     Id = 2,
@@ -78,7 +78,7 @@ namespace WebAPI_UnitTests
             var result = await _sut.GetBookById(id) as ObjectResult;
 
             //Assert
-            Assert.Equal((null), result.Value);
+            Assert.Equal(null, result.Value);
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace WebAPI_UnitTests
             var result = await _sut.GetBookById(id) as ObjectResult;
 
             //Assert
-            Assert.Equal((null), result.Value);
+            Assert.Equal(null, result.Value);
         }
     }
 }

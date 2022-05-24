@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BL.Interfaces;
+using Common.Dto.Report;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Model.Dto.Report;
-using WebAPI.Services.Interfaces;
 
 namespace WebAPI.Controllers
 {

@@ -1,12 +1,13 @@
-﻿using Common.StripeErrorModels;
+﻿using BL.Interfaces;
+using Common.Dto.Payment;
+using Common.StripeErrorModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Stripe;
 using Stripe.Checkout;
-using WebAPI.Model.Dto.Payment;
-using WebAPI.Services.Interfaces;
+using System.Security.Claims;
 
 namespace WebAPI.Controllers
 {
@@ -23,7 +24,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("products/{NumberOfProducts}")]
-        //[Authorize(Roles = "admin,FreeUser,PaidUser")]
+        [Authorize]
         public async Task<IActionResult> Products(long NumberOfProducts)
         {
             var result = await _paymentService.GetListProducts(NumberOfProducts);
@@ -34,53 +35,29 @@ namespace WebAPI.Controllers
         [HttpPost("create-checkout-session")]
         public async Task<ActionResult> CreateCheckoutSession([FromBody] CreateCheckoutSessionRequest req)
         {
-            var option = new SessionCreateOptions
-            {
-                SuccessUrl = "http://localhost:3000/successl",
-                CancelUrl = "http://localhost:3000/failure",
-                PaymentMethodTypes = new List<string>
-                {
-                    "card",
-                },
-                Mode = "subscription",
-                LineItems = new List<SessionLineItemOptions>
-                {
-                    new SessionLineItemOptions
-                    {
-                        Price = req.PriceId,
-                        Quantity = 1,
-                    },
-                },
-            };
+            var session = await _paymentService.CreateCheckoutSession(req);
 
-            var service = new SessionService();
-            try
-            {
-                var session = await service.CreateAsync(option);
-                return Ok(new CreateCheckoutSessionResponse
-                {
-                    SessionId = session.Id,
-                });
-            }
-            catch (StripeException e)
-            {
-                Console.WriteLine(e.StripeError.Message);
-                return BadRequest(new ErrorResponse
-                {
-                    ErrorMessage = new ErrorMessage
-                    {
-                        Message = e.StripeError.Message,
-                    }
-                });
-            }
-
-
+            return Ok(new { SessionId = session.Id });
         }
+
+        [Authorize]
+        [HttpPost("customer-portal")]
+        public async Task<IActionResult> CustomerPortal([FromBody] CreatePortalRequest req)
+        {
+            ClaimsPrincipal principal = HttpContext.User as ClaimsPrincipal;
+            var claim = principal.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+
+            var session = await _paymentService.CustomerPortal(req, claim);
+
+            return Ok(new { url = session.Url });
+        }
+
         [AllowAnonymous]
         [HttpPost("webhook")]
         public async Task<IActionResult> WebHook()
         {
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+
             var stripeEvent = EventUtility.ConstructEvent(
                 json,
                 Request.Headers["Stripe-Signature"],

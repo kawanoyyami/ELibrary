@@ -1,13 +1,12 @@
 ﻿using Microsoft.OpenApi.Models;
-using Entity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using WebAPI.Middlewares;
 using WebAPI.Extensions;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.FileProviders;
 using Stripe;
-using WebAPI.Model.Dto.Payment;
+using Common.Dto.Payment;
+using DataAccess;
 
 namespace WebAPI
 {
@@ -84,7 +83,7 @@ namespace WebAPI
             loggerFactory.AddFile("Logs/App-{Date}.txt");
 
             app.UseCors(options => options
-                .WithOrigins("http://localhost:3000")
+                .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 

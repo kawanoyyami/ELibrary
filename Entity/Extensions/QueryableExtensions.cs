@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Common.Models.PagedRequestModels;
-using Entity.Models;
-using Entity.Models.Auth;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Text;
 
-namespace Entity.Extensions
+namespace DataAccess.Extensions
 {
     public static class QueryableExtensions
     {

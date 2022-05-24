@@ -1,17 +1,18 @@
-﻿using Entity.Models.Auth;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Entity.EFConfiguration;
 using System.Reflection;
-using Entity.Models;
-using Entity.Models.Payment;
+using Domain.Models.Auth;
+using Domain.Models.Subscriptio;
+using Domain.Models.Books;
+using Domain.Models.Reports;
+using Domain.Models.Payment;
 
-namespace Entity
+namespace DataAccess
 {
     public class ApplicationContext : IdentityDbContext<User, Role, long, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
     {

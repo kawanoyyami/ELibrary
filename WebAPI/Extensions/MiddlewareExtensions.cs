@@ -1,4 +1,6 @@
-﻿namespace WebAPI.Middlewares
+﻿using WebAPI.Middlewares;
+
+namespace WebAPI.Extensions
 {
     public static class MiddlewareExtensions
     {

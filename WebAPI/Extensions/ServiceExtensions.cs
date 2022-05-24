@@ -1,12 +1,12 @@
-﻿using Entity.Models.Auth;
-using Entity.Repository;
-using WebAPI.Services;
-using WebAPI.Services.Interfaces;
-using Entity;
+﻿using Entity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using WebAPI.Model.Auth;
+using BL.Services;
+using BL.Interfaces;
+using DataAccess.Repository;
+using DataAccess.Repository.Interfaces;
+using DataAccess;
 
 namespace WebAPI.Extensions
 {

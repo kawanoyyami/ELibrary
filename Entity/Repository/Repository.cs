@@ -1,7 +1,5 @@
 ﻿using Common.Exceptions;
 using Common.Models.PagedRequestModels;
-using Entity.Models;
-using Entity.Models.Auth;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,10 +7,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Entity.Extensions;
 using AutoMapper;
+using Domain.Models;
+using DataAccess.Repository.Interfaces;
+using DataAccess.Extensions;
 
-namespace Entity.Repository
+namespace DataAccess
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntityBase
     {
@@ -98,19 +98,10 @@ namespace Entity.Repository
 
         public async Task<List<TEntity>> ListAsync() => await _context.Set<TEntity>().ToListAsync();
 
-        public async Task<TEntity?> FindEntity(Expression<Func<TEntity, bool>> findBy, params Expression<Func<TEntity, object>>[] includes)
+        public async Task<TEntity?> FindEntity(Expression<Func<TEntity, bool>> findBy)
         {
-            IQueryable<TEntity> entities = _context.Set<TEntity>();
 
-            if (includes != null)
-            {
-                foreach (var include in includes)
-                {
-                    entities = entities.Include(include);
-                }
-            }
-
-            var entity = await entities.FirstOrDefaultAsync(findBy).ConfigureAwait(false);
+            var entity = await _context.Set<TEntity>().FirstOrDefaultAsync(findBy).ConfigureAwait(false);
 
             if (entity == null)
             {

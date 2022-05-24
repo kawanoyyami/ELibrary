@@ -1,8 +1,8 @@
-﻿using Entity.Models.Auth;
-using Microsoft.AspNetCore.Identity;
-using Entity.Seed;
-using Entity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using DataAccess;
+using Domain.Models.Auth;
+using DataAccess.Seed;
 
 namespace WebAPI.Extensions
 {

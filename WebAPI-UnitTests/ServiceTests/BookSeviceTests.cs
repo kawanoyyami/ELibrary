@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using Entity.Models;
-using Entity.Repository;
+using BL.Interfaces;
+using BL.Services;
+using DataAccess.Repository.Interfaces;
+using Domain.Models.Books;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebAPI.Services;
-using WebAPI.Services.Interfaces;
 using Xunit;
 
 namespace WebAPI_UnitTests.ServiceTests

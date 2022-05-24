@@ -1,13 +1,13 @@
-﻿using Moq;
+﻿using BL.Interfaces;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebAPI.Controllers;
-using WebAPI.Services.Interfaces;
 
-namespace WebAPI_UnitTests
+namespace WebAPI_UnitTests.ControllerTests
 {
     public class AuthorControllerTests
     {
