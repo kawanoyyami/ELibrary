@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Entity.Migrations
+namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
     partial class ApplicationContextModelSnapshot : ModelSnapshot
@@ -17,7 +17,7 @@ namespace Entity.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -37,7 +37,7 @@ namespace Entity.Migrations
                     b.ToTable("AuthorBook");
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.Role", b =>
+            modelBuilder.Entity("Domain.Models.Auth.Role", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,7 @@ namespace Entity.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.RoleClaim", b =>
+            modelBuilder.Entity("Domain.Models.Auth.RoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,7 +91,7 @@ namespace Entity.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.User", b =>
+            modelBuilder.Entity("Domain.Models.Auth.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -174,7 +174,7 @@ namespace Entity.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.UserClaim", b =>
+            modelBuilder.Entity("Domain.Models.Auth.UserClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -198,7 +198,7 @@ namespace Entity.Migrations
                     b.ToTable("AspNetUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.UserLogin", b =>
+            modelBuilder.Entity("Domain.Models.Auth.UserLogin", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -219,7 +219,7 @@ namespace Entity.Migrations
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.UserRole", b =>
+            modelBuilder.Entity("Domain.Models.Auth.UserRole", b =>
                 {
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -234,7 +234,7 @@ namespace Entity.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.UserToken", b =>
+            modelBuilder.Entity("Domain.Models.Auth.UserToken", b =>
                 {
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -253,7 +253,7 @@ namespace Entity.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Entity.Models.Author", b =>
+            modelBuilder.Entity("Domain.Models.Books.Author", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -282,7 +282,7 @@ namespace Entity.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("Entity.Models.Book", b =>
+            modelBuilder.Entity("Domain.Models.Books.Book", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -331,7 +331,7 @@ namespace Entity.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Entity.Models.Payment.Payment", b =>
+            modelBuilder.Entity("Domain.Models.Payment.Payment", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -357,7 +357,7 @@ namespace Entity.Migrations
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("Entity.Models.Payment.PaymentDetails", b =>
+            modelBuilder.Entity("Domain.Models.Payment.PaymentDetails", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -383,7 +383,7 @@ namespace Entity.Migrations
                     b.ToTable("PaymentDetails");
                 });
 
-            modelBuilder.Entity("Entity.Models.Project", b =>
+            modelBuilder.Entity("Domain.Models.Reports.Project", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -413,7 +413,7 @@ namespace Entity.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("Entity.Models.Report", b =>
+            modelBuilder.Entity("Domain.Models.Reports.Report", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -447,7 +447,7 @@ namespace Entity.Migrations
                     b.ToTable("Reports");
                 });
 
-            modelBuilder.Entity("Entity.Models.Subscriptionn", b =>
+            modelBuilder.Entity("Domain.Models.Subscriptio.Subscriptionn", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -480,14 +480,14 @@ namespace Entity.Migrations
 
             modelBuilder.Entity("AuthorBook", b =>
                 {
-                    b.HasOne("Entity.Models.Author", null)
+                    b.HasOne("Domain.Models.Books.Author", null)
                         .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired()
                         .HasConstraintName("FK_AuthorBook_Authors_AuthorId");
 
-                    b.HasOne("Entity.Models.Book", null)
+                    b.HasOne("Domain.Models.Books.Book", null)
                         .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -495,66 +495,66 @@ namespace Entity.Migrations
                         .HasConstraintName("FK_AuthorBook_Books_BookId");
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.RoleClaim", b =>
+            modelBuilder.Entity("Domain.Models.Auth.RoleClaim", b =>
                 {
-                    b.HasOne("Entity.Models.Auth.Role", null)
+                    b.HasOne("Domain.Models.Auth.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.UserClaim", b =>
+            modelBuilder.Entity("Domain.Models.Auth.UserClaim", b =>
                 {
-                    b.HasOne("Entity.Models.Auth.User", null)
+                    b.HasOne("Domain.Models.Auth.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.UserLogin", b =>
+            modelBuilder.Entity("Domain.Models.Auth.UserLogin", b =>
                 {
-                    b.HasOne("Entity.Models.Auth.User", null)
+                    b.HasOne("Domain.Models.Auth.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.UserRole", b =>
+            modelBuilder.Entity("Domain.Models.Auth.UserRole", b =>
                 {
-                    b.HasOne("Entity.Models.Auth.Role", null)
+                    b.HasOne("Domain.Models.Auth.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Models.Auth.User", null)
+                    b.HasOne("Domain.Models.Auth.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.UserToken", b =>
+            modelBuilder.Entity("Domain.Models.Auth.UserToken", b =>
                 {
-                    b.HasOne("Entity.Models.Auth.User", null)
+                    b.HasOne("Domain.Models.Auth.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.Models.Payment.Payment", b =>
+            modelBuilder.Entity("Domain.Models.Payment.Payment", b =>
                 {
-                    b.HasOne("Entity.Models.Payment.PaymentDetails", "PaymentDetails")
+                    b.HasOne("Domain.Models.Payment.PaymentDetails", "PaymentDetails")
                         .WithMany()
                         .HasForeignKey("PaymentDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Models.Subscriptionn", "Subscription")
+                    b.HasOne("Domain.Models.Subscriptio.Subscriptionn", "Subscription")
                         .WithMany()
                         .HasForeignKey("SubscriptionId");
 
@@ -563,9 +563,9 @@ namespace Entity.Migrations
                     b.Navigation("Subscription");
                 });
 
-            modelBuilder.Entity("Entity.Models.Project", b =>
+            modelBuilder.Entity("Domain.Models.Reports.Project", b =>
                 {
-                    b.HasOne("Entity.Models.Auth.User", "User")
+                    b.HasOne("Domain.Models.Auth.User", "User")
                         .WithMany("Projects")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -574,9 +574,9 @@ namespace Entity.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Entity.Models.Report", b =>
+            modelBuilder.Entity("Domain.Models.Reports.Report", b =>
                 {
-                    b.HasOne("Entity.Models.Project", "Project")
+                    b.HasOne("Domain.Models.Reports.Project", "Project")
                         .WithMany("Reports")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -585,9 +585,9 @@ namespace Entity.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("Entity.Models.Subscriptionn", b =>
+            modelBuilder.Entity("Domain.Models.Subscriptio.Subscriptionn", b =>
                 {
-                    b.HasOne("Entity.Models.Auth.User", "User")
+                    b.HasOne("Domain.Models.Auth.User", "User")
                         .WithMany("Subscriptions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -596,14 +596,14 @@ namespace Entity.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Entity.Models.Auth.User", b =>
+            modelBuilder.Entity("Domain.Models.Auth.User", b =>
                 {
                     b.Navigation("Projects");
 
                     b.Navigation("Subscriptions");
                 });
 
-            modelBuilder.Entity("Entity.Models.Project", b =>
+            modelBuilder.Entity("Domain.Models.Reports.Project", b =>
                 {
                     b.Navigation("Reports");
                 });
